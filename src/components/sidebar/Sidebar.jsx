@@ -1,11 +1,10 @@
 import React from "react";
 import "./Sidebar.css";
-import { Timeline } from "@material-ui/icons";
-import PersonIcon from "@mui/icons-material/Person";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import LocalMallIcon from "@mui/icons-material/LocalMall";
+import { Timeline, Storefront } from "@material-ui/icons";
+import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
-import HomeIcon from "@mui/icons-material/Home";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 function sidebar() {
   return (
     <div className="sidebar">
@@ -13,23 +12,23 @@ function sidebar() {
         <div className="sideMenu">
           <h3 className="sidebarTitle">Dashboard</h3>
           <ul className="sidebarList">
-            <li className="sidebarListItem">
-              <HomeIcon /> Home
+            <li className="sidebarListItem active">
+              <HomeOutlinedIcon className="sidebarIcon" /> Home
             </li>
             <li className="sidebarListItem">
-              <Timeline /> Analytics
+              <Timeline className="sidebarIcon" /> Analytics
             </li>
             <li className="sidebarListItem">
-              <LocalMallIcon /> Products
+              <Storefront className="sidebarIcon" /> Products
             </li>
             <li className="sidebarListItem">
-              <ShoppingCartIcon /> Orders
+              <ShoppingCartOutlinedIcon className="sidebarIcon" /> Orders
             </li>
             <li className="sidebarListItem">
-              <PersonIcon /> Users
+              <PersonOutlineOutlinedIcon className="sidebarIcon" /> Users
             </li>
             <li className="sidebarListItem">
-              <LogoutIcon /> Logout
+              <LogoutIcon className="sidebarIcon" /> Logout
             </li>
           </ul>
         </div>
