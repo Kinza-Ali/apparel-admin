@@ -1,6 +1,7 @@
 * {
   font-family: "Source Sans Pro", sans-serif;
 }
+/* Navbar */
 .navbar {
   width: 100%;
   height: 50px;
@@ -10,7 +11,7 @@
   z-index: 999;
 }
 .navbarWrapper {
-  height: 100px;
+  height: 100%;
   padding: 0px 20px;
   display: flex;
   align-items: center;
@@ -30,4 +31,14 @@
   height: 60px;
   border-radius: 100%;
   font-size: 40px;
+}
+/* Navbar ends*/
+
+.container {
+  display: flex;
+}
+
+.others {
+  flex: 4;
+  background-color: aquamarine;
 }
