@@ -1,10 +1,10 @@
 import React from "react";
 import "./Topbar.css";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-function Navbar() {
+function Topbar() {
   return (
-    <div className="navbar">
-      <div className="navbarWrapper">
+    <div className="topbar">
+      <div className="topbarWrapper">
         <div className="topleft">
           <span className="logo">Soul</span>
         </div>
@@ -18,4 +18,4 @@ function Navbar() {
   );
 }
 
-export default Navbar;
+export default Topbar;
