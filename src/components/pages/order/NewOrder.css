@@ -1,0 +1,41 @@
+.newOrder {
+  flex: 4;
+  margin-left: 10px;
+}
+
+.addOrderForm {
+  margin-top: 10px;
+  flex-wrap: wrap;
+}
+
+.addOrderItem {
+  width: 250px;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.addOrderItem > label {
+  color: gray;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.addOrderItem > input {
+  padding: 10px;
+}
+
+.addOrderItem > select {
+  padding: 10px;
+}
+
+.addOrderButton {
+  margin-top: 10px;
+  padding: 7px 10px;
+  border: none;
+  border-radius: 10px;
+  background-color: darkblue;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
