@@ -29,7 +29,11 @@
   color: red;
   cursor: pointer;
 }
-
+.topButtons {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
 .productAddButton {
   width: 100px;
   border: none;
@@ -39,9 +43,22 @@
   cursor: pointer;
   color: white;
   font-size: 16px;
-  align-items: flex-end;
+  /* align-items: flex-end; */
   margin-top: 10px;
   margin-bottom: 20px;
-  margin-left: 90%;
-  justify-content: end;
+  /* margin-left: 40%; */
+  /* justify-content: end; */
+}
+.productSearchButton {
+  width: 200px;
+  border: none;
+  padding: 5px;
+  background-color: teal;
+  border-radius: 5px;
+  cursor: pointer;
+  color: white;
+  font-size: 16px;
+  margin-top: 10px;
+  margin-bottom: 20px;
+  margin-left: 20px;
 }

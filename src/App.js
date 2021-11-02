@@ -5,6 +5,7 @@ import Home from "./components/pages/home/Home";
 import Products from "./components/pages/products/Products";
 import NewProduct from "./components/pages/products/NewProduct";
 import UpdateProduct from "./components/pages/products/UpdateProduct";
+import SearchProduct from "./components/pages/products/SearchProduct";
 import Orders from "./components/pages/order/Orders";
 import UpdateOrder from "./components/pages/order/UpdateOrder";
 import NewOrder from "./components/pages/order/NewOrder";
@@ -37,6 +38,9 @@ function App() {
           </Route>
           <Route path="/newProduct">
             <NewProduct />
+          </Route>
+          <Route path="/searchProduct">
+            <SearchProduct />
           </Route>
           <Route path="/product/:productId">
             <UpdateProduct />
