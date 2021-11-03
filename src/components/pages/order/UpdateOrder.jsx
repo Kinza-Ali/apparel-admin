@@ -4,6 +4,14 @@ import { Link } from "react-router-dom";
 import { Publish } from "@material-ui/icons";
 
 function UpdateOrder() {
+  const order = {
+    productId: 48754,
+    quantity: 2,
+    deliveryDate: "12-04-21",
+    totalPrice: 484,
+    customerId: 59859,
+  };
+  console.log(order);
   return (
     <div className="order">
       <div className="orderTitleContainer">
@@ -21,26 +29,14 @@ function UpdateOrder() {
             <span className="orderItem">Items: </span>
           </div>
           <div className="orderInfoBottom">
-            <div className="orderInfoItem">
-              <span className="orderInfoKey">Product Id:</span>
-              <span className="orderInfoValue">44474587</span>
-            </div>
-            <div className="orderInfoItem">
-              <span className="orderInfoKey">Quantity:</span>
-              <span className="orderInfoValue">3</span>
-            </div>
-            <div className="orderInfoItem">
-              <span className="orderInfoKey">Delivery Date:</span>
-              <span className="orderInfoValue">12-02-22</span>
-            </div>
-            <div className="ordeInfoItem">
-              <span className="orderInfoKey">Total Price:</span>
-              <span className="orderInfoValue">5,000 PKR</span>
-            </div>
-            <div className="ordeInfoItem">
-              <span className="orderInfoKey">Customer Id:</span>
-              <span className="orderInfoValue">4465784</span>
-            </div>
+            {Object.keys(order).map((key, index) => {
+              return (
+                <div className="orderInfoItem">
+                  <span className="orderInfo">{key}</span>
+                  <span className="orderInfoValue">{order[key]}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>

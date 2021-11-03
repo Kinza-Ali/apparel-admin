@@ -10,6 +10,20 @@ import {
 import { Link } from "react-router-dom";
 
 function UpdateUser() {
+  const updateUser = [
+    {
+      label: "Full Name",
+      placeholder: "Anna Becker",
+    },
+    {
+      label: "D.O.B",
+      placeholder: "10-12-22",
+    },
+    {
+      label: "Phone",
+      placeholder: "4365458856",
+    },
+  ];
   return (
     <div className="user">
       <div className="userTitleContainer">
@@ -55,30 +69,18 @@ function UpdateUser() {
           <span className="userUpdateTitle">Edit</span>
           <form className="userUpdateForm">
             <div className="userUpdateLeft">
-              <div className="userUpdateItem">
-                <label>Full Name</label>
-                <input
-                  type="text"
-                  placeholder="Anna Becker"
-                  className="userUpdateInput"
-                />
-              </div>
-              <div className="userUpdateItem">
-                <label>D.O.B</label>
-                <input
-                  type="text"
-                  placeholder="10-12-1999"
-                  className="userUpdateInput"
-                />
-              </div>
-              <div className="userUpdateItem">
-                <label>Phone</label>
-                <input
-                  type="text"
-                  placeholder="+1 123 456 67"
-                  className="userUpdateInput"
-                />
-              </div>
+              {updateUser.map((user) => {
+                return (
+                  <div className="userUpdateItem">
+                    <label>{user.label}</label>
+                    <input
+                      type="text"
+                      placeholder={user.placeholder}
+                      className="userUpdateInput"
+                    />
+                  </div>
+                );
+              })}
             </div>
             <div className="userUpdateRight">
               <div className="userUpdateUpload">

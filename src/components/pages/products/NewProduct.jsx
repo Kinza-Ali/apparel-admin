@@ -2,31 +2,63 @@ import React from "react";
 import "./NewProduct.css";
 
 function newProducts() {
+  const products = [
+    {
+      label: "Image",
+      type: "file",
+      isFile: true,
+    },
+    {
+      label: "Quantity",
+      type: "text",
+      isFile: false,
+      placeholder: 12,
+    },
+    {
+      label: "Product Name",
+      type: "text",
+      isFile: false,
+      placeholder: "add product name",
+    },
+    {
+      label: "Quantity",
+      type: "text",
+      isFile: false,
+      placeholder: "33",
+    },
+    {
+      label: "Price",
+      type: "text",
+      isFile: false,
+      placeholder: "price in PKR",
+    },
+  ];
+
+  const renderInputComponent = (product) => {
+    if (product.isFile) {
+      return <input type={product.type} accept="image/*" />;
+    }
+    return <input type={product.type} placeholder={product.placeholder} />;
+  };
+
   return (
     <div className="newProduct">
       <h1 className="addProductTitle">New Product</h1>
       <form className="addProductForm">
-        <div className="addProductItem">
-          <label>Image</label>
-          <input type="file" id="file" accept="image/*" />
-        </div>
-        <div className="addProductItem">
-          <label>Name</label>
-          <input type="text" placeholder="Sweat Shirts" />
-        </div>
-        <div className="addProductItem">
-          <label>Quantity</label>
-          <input type="text" placeholder="123" />
-        </div>
-        <div className="addProductItem">
-          <label>Product Type</label>
-          <input type="text" placeholder="Clothing" />
-        </div>
-        <div className="addProductItem">
-          <label>Price</label>
-          <input type="text" placeholder="6,000 PKR" />
-        </div>
-
+        {products.map((product) => {
+          <div className="addProductItem">
+            <label>{product.label}</label>
+            {renderInputComponent(product)}
+          </div>;
+        })}
+        {products.map((product) => {
+          return (
+            <div className="addProductItem">
+              <label>{product.label}</label>
+              {renderInputComponent(product)}
+            </div>
+          );
+        })}
         <button className="addProductButton">Create</button>
       </form>
     </div>

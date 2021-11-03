@@ -2,35 +2,65 @@ import React from "react";
 import "./NewUser.css";
 
 function NewUser() {
-  return (
-    <div className="newUser">
-      <h1 className="newUserTitle">New User</h1>
-      <form className="newUserForm">
-        <div className="newUserItem">
-          <label>Full Name</label>
-          <input type="text" placeholder="John Smith" />
-        </div>
-        <div className="newUserItem">
-          <label>Email</label>
-          <input type="email" placeholder="john@gmail.com" />
-        </div>
-        <div className="newUserItem">
-          <label>Password</label>
-          <input type="password" placeholder="password" />
-        </div>
-        <div className="newUserItem">
-          <label>Phone</label>
-          <input type="text" placeholder="+1 123 456 78" />
-        </div>
-        <div className="newUserItem">
-          <label>Role</label>
+  const user = [
+    {
+      label: "Full Name",
+      type: "text",
+      placeholder: "John Smith",
+      isRole: false,
+    },
+    {
+      label: "Email",
+      type: "text",
+      placeholder: "john@gmail.com",
+      isRole: false,
+    },
+    {
+      label: "Password",
+      type: "text",
+      placeholder: "password",
+      isRole: false,
+    },
+    {
+      label: "Phone",
+      type: "text",
+      placeholder: "phone",
+      isRole: false,
+    },
+    {
+      label: "Role",
+      isRole: true,
+    },
+  ];
+
+  const renderInputComponent = (user) => {
+    if (user.isRole) {
+      return (
+        <>
+          {" "}
           <div className="newUserRole">
             <input type="radio" name="role" id="admin" value="admin" />
             <label for="admin">Admin</label>
             <input type="radio" name="role" id="user" value="user" />
             <label for="user">User</label>
           </div>
-        </div>
+        </>
+      );
+    }
+    return <input type={user.type} placeholder={user.placeholder} />;
+  };
+  return (
+    <div className="newUser">
+      <h1 className="newUserTitle">New User</h1>
+      <form className="newUserForm">
+        {user.map((user) => {
+          return (
+            <div className="newUserItem">
+              <label>{user.label}</label>
+              {renderInputComponent(user)}
+            </div>
+          );
+        })}
         <button className="newUserButton">Add User</button>
       </form>
     </div>

@@ -4,6 +4,44 @@ import { Link } from "react-router-dom";
 import { Publish } from "@material-ui/icons";
 
 function UpdateProduct() {
+  const product = {
+    id: 48754,
+    quantity: 2,
+    productType: 2,
+    price: 484,
+  };
+  const productUpdate = [
+    {
+      label: "Product Name",
+      type: "text",
+      isFile: false,
+      placeholder: "Top",
+    },
+    {
+      label: "Quantity",
+      type: "text",
+      isFile: false,
+      placeholder: 12,
+    },
+    {
+      label: "Product Type",
+      type: "text",
+      isFile: false,
+      placeholder: "2",
+    },
+    {
+      label: "Quantity",
+      type: "text",
+      isFile: false,
+      placeholder: "33",
+    },
+    {
+      label: "Price",
+      type: "text",
+      isFile: false,
+      placeholder: "4849",
+    },
+  ];
   return (
     <div className="product">
       <div className="productTitleContainer">
@@ -23,36 +61,31 @@ function UpdateProduct() {
             <span className="productName">Bag</span>
           </div>
           <div className="productInfoBottom">
-            <div className="productInfoItem">
-              <span className="productInfoKey">id:</span>
-              <span className="productInfoValue">123</span>
-            </div>
-            <div className="productInfoItem">
-              <span className="productInfoKey">Quantity:</span>
-              <span className="productInfoValue">5123</span>
-            </div>
-            <div className="productInfoItem">
-              <span className="productInfoKey">Product Type:</span>
-              <span className="productInfoValue">Bags</span>
-            </div>
-            <div className="productInfoItem">
-              <span className="productInfoKey">Price:</span>
-              <span className="productInfoValue">5,000 PKR</span>
-            </div>
+            {Object.keys(product).map((key, index) => {
+              return (
+                <div className="productInfoItem">
+                  <span className="productInfoKey">{key}</span>
+                  <span className="productInfoValue">{product[key]}</span>
+                </div>
+              );
+            })}
           </div>
         </div>
       </div>
       <div className="productBottom">
         <form className="productForm">
           <div className="productFormLeft">
-            <label>Product Name</label>
-            <input type="text" placeholder="bag" />
-            <label>Quantity</label>
-            <input type="quantity" placeholder="444" />
-            <label>Price</label>
-            <input type="price" placeholder="444 in PKR" />
-            <label>Product Type</label>
-            <input type="productType" placeholder="Bag" />
+            {productUpdate.map((product) => {
+              return (
+                <>
+                  <label>{product.label}</label>
+                  <input
+                    type={product.type}
+                    placeholder={product.placeholder}
+                  />
+                </>
+              );
+            })}
           </div>
           <div className="productFormRight">
             <div className="productUpload">
