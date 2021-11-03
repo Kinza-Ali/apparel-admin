@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-import { orderRows } from "../../../dummyData";
-import { Link } from "react-router-dom";
-import { useState } from "react";
 import "./Orders.css";
+import { orderRows } from "../../../dummyData";
 
 function Orders() {
   const [data, setData] = useState(orderRows);

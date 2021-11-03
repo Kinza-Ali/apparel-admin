@@ -1,5 +1,5 @@
-import { ActionTypes } from "../constants/actionType";
 import axios from "axios";
+import { ActionTypes } from "../constants/actionType";
 // import { urlProducts } from "../../../config/axios";
 
 export const getProducts = () => async (dispatch) => {
@@ -28,9 +28,30 @@ export const getProductById = (id) => async (dispatch) => {
   }
 };
 
-export const selectedProducts = (product) => {
-  return {
-    type: ActionTypes.SELECTED_PRODUCT,
-    payload: product,
-  };
+export const deleteProduct = (id) => async (dispatch) => {
+  try {
+    const deleteRequest = await axios.delete(
+      "http://localhost:3000/api/product/" + id
+    );
+    dispatch({ type: ActionTypes.REMOVE_SELECTED_PRODUCT });
+  } catch (error) {
+    dispatch({
+      type: ActionTypes.FAILED_GET_PRODUCTS,
+      payload: error,
+    });
+  }
+};
+export const updateProduct = (id, productItem) => async (dispatch) => {
+  try {
+    const updateRequest = await axios.put(
+      "http://localhost:3000/api/product/" + id,
+      productItem
+    );
+    dispatch({ type: ActionTypes.UPDATE_PRODUCT });
+  } catch (error) {
+    dispatch({
+      type: ActionTypes.FAILED_GET_PRODUCTS,
+      payload: error,
+    });
+  }
 };

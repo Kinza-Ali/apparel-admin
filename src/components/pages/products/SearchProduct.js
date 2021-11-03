@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getProductById } from "../../redux/actions/productActions";
 import "./SearchProduct.css";
+import { getProductById } from "../../redux/actions/productActions";
 
 function SearchProduct() {
   const dispatch = useDispatch();
-  // let _id=0, productName=null, image=null, price=0, productType=null, quantity=0
-  // console.log(_id, productName, image, price, productType, quantity);
   const product = useSelector((state) => state.getProductById.products.data);
   console.log(product);
   const [id, setId] = useState();

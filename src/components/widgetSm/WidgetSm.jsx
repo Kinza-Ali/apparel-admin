@@ -2,6 +2,7 @@ import React from "react";
 import "./WidgetSm.css";
 import { Visibility } from "@material-ui/icons";
 import { img } from "../../dummyData";
+
 function WidgetSm() {
   return (
     <div className="widgetSm">

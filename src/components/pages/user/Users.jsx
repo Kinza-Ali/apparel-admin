@@ -1,10 +1,9 @@
-import React from "react";
-import "./Users.css";
-import { DataGrid } from "@material-ui/data-grid";
-import { DeleteOutline } from "@material-ui/icons";
-import { userRows } from "../../../dummyData";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { DeleteOutline } from "@material-ui/icons";
+import { DataGrid } from "@material-ui/data-grid";
+import "./Users.css";
+import { userRows } from "../../../dummyData";
 
 function Users() {
   const [data, setData] = useState(userRows);

@@ -1,4 +1,3 @@
-// import { FETCH_POSTS, NEW_POST } from "../actions/types";
 import { ActionTypes } from "../constants/actionType";
 const initialState = {
   products: [],
@@ -22,6 +21,10 @@ export const getProductIdReducer = (
   switch (type) {
     case ActionTypes.GET_PRODUCTS_BY_ID:
       return { ...state, products: payload };
+    case ActionTypes.UPDATE_PRODUCT:
+      return { ...state };
+    case ActionTypes.REMOVE_SELECTED_PRODUCT:
+      return {};
     default:
       return state;
   }

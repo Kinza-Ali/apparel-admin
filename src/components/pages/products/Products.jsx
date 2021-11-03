@@ -1,27 +1,35 @@
 import React, { useEffect } from "react";
-import { DataGrid } from "@material-ui/data-grid";
-import { DeleteOutline } from "@material-ui/icons";
-import { getProducts } from "../../redux/actions/productActions";
-//not required
-// import { productRows } from "../../../dummyData";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { DataGrid } from "@material-ui/data-grid";
+import { DeleteOutline } from "@material-ui/icons";
+import {
+  getProducts,
+  deleteProduct,
+  getProductById,
+} from "../../redux/actions/productActions";
+//not required
+// import { productRows } from "../../../dummyData";
 
 import "./Products.css";
 
 function Products() {
   let products = 0;
   const dispatch = useDispatch();
+  products = useSelector((state) => state.allProducts.products.data);
+  console.log(products);
 
   useEffect(() => {
     console.log("calling use effect");
     dispatch(getProducts());
   }, [dispatch]);
-  products = useSelector((state) => state.allProducts.products.data);
-  console.log(products);
+
+  const getProduct = (id) => {
+    dispatch(getProductById(id));
+  };
 
   const handleDelete = (id) => {
-    // setData(data.filter((item) => item.id !== id));
+    dispatch(deleteProduct(id));
   };
 
   const columns = [
@@ -57,12 +65,19 @@ function Products() {
       renderCell: (params) => {
         return (
           <div>
-            <Link to={"/product/" + params.row.id}>
-              <button className="productListEdit">Edit</button>
+            <Link to={"/product/" + params.id}>
+              <button
+                className="productListEdit"
+                onClick={() => getProduct(params.id)}
+              >
+                Edit
+              </button>
             </Link>
             <DeleteOutline
               className="productListDelete"
-              onClick={() => handleDelete(params.row.id)}
+              onClick={() => {
+                handleDelete(params.id);
+              }}
             />
           </div>
         );

@@ -1,11 +1,12 @@
 import React from "react";
-import "./Sidebar.css";
+import { Link } from "react-router-dom";
 import { Timeline, Storefront } from "@material-ui/icons";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import { Link } from "react-router-dom";
+import "./Sidebar.css";
+
 function sidebar() {
   return (
     <div className="sidebar">

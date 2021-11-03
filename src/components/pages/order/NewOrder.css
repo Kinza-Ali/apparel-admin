@@ -4,15 +4,15 @@
 }
 
 .addOrderForm {
-  margin-top: 10px;
   flex-wrap: wrap;
+  margin-top: 10px;
 }
 
 .addOrderItem {
-  width: 250px;
   display: flex;
   flex-direction: column;
   margin-bottom: 10px;
+  width: 250px;
 }
 
 .addOrderItem > label {
@@ -30,12 +30,12 @@
 }
 
 .addOrderButton {
-  margin-top: 10px;
-  padding: 7px 10px;
+  background-color: darkblue;
   border: none;
   border-radius: 10px;
-  background-color: darkblue;
   color: white;
-  font-weight: 600;
   cursor: pointer;
+  font-weight: 600;
+  margin-top: 10px;
+  padding: 7px 10px;
 }

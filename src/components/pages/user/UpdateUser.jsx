@@ -1,5 +1,5 @@
 import React from "react";
-import "./UpdateUser.css";
+import { Link } from "react-router-dom";
 import {
   CalendarToday,
   MailOutline,
@@ -7,7 +7,7 @@ import {
   PhoneAndroid,
   Publish,
 } from "@material-ui/icons";
-import { Link } from "react-router-dom";
+import "./UpdateUser.css";
 
 function UpdateUser() {
   return (

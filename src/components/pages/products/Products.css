@@ -3,26 +3,26 @@
 }
 
 .productListItem {
-  display: flex;
   align-items: center;
+  display: flex;
 }
 
 .productListImg {
-  width: 32px;
-  height: 32px;
   border-radius: 50%;
-  object-fit: cover;
+  height: 32px;
   margin-right: 10px;
+  object-fit: cover;
+  width: 32px;
 }
 
 .productListEdit {
+  background-color: #3bb077;
   border: none;
   border-radius: 10px;
-  padding: 5px 10px;
-  background-color: #3bb077;
   color: white;
   cursor: pointer;
   margin-right: 20px;
+  padding: 5px 10px;
 }
 
 .productListDelete {
@@ -30,35 +30,32 @@
   cursor: pointer;
 }
 .topButtons {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: space-between;
 }
 .productAddButton {
-  width: 100px;
-  border: none;
-  padding: 5px;
   background-color: teal;
+  border: none;
   border-radius: 5px;
   cursor: pointer;
   color: white;
   font-size: 16px;
-  /* align-items: flex-end; */
-  margin-top: 10px;
   margin-bottom: 20px;
-  /* margin-left: 40%; */
-  /* justify-content: end; */
+  margin-top: 10px;
+  padding: 5px;
+  width: 100px;
 }
 .productSearchButton {
-  width: 200px;
-  border: none;
-  padding: 5px;
   background-color: teal;
+  border: none;
   border-radius: 5px;
-  cursor: pointer;
   color: white;
+  cursor: pointer;
   font-size: 16px;
-  margin-top: 10px;
+  width: 200px;
   margin-bottom: 20px;
   margin-left: 20px;
+  margin-top: 10px;
+  padding: 5px;
 }

@@ -1,6 +1,6 @@
 import React from "react";
-import "./UpdateOrder.css";
 import { Link } from "react-router-dom";
+import "./UpdateOrder.css";
 
 function UpdateOrder() {
   return (

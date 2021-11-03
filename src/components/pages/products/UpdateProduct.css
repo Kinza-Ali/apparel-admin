@@ -4,21 +4,21 @@
 }
 
 .productTitleContainer {
-  display: flex;
   align-items: center;
+  display: flex;
   justify-content: space-between;
 }
 
 .productAddButtons {
-  width: 100px;
-  border: none;
-  padding: 5px;
   background-color: teal;
-  color: white;
   border-radius: 5px;
-  font-size: 16px;
+  border: none;
+  color: white;
   cursor: pointer;
+  font-size: 16px;
   margin-right: 20px;
+  width: 100px;
+  padding: 5px;
 }
 
 .productTop {
@@ -31,23 +31,23 @@
 }
 
 .productTopRight {
-  padding: 20px;
-  margin: 20px;
-  -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
   box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  margin: 20px;
+  padding: 20px;
+  -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
 }
 
 .productInfoImg {
-  width: 40px;
-  height: 40px;
   border-radius: 50%;
-  object-fit: cover;
+  height: 40px;
   margin-right: 20px;
+  object-fit: cover;
+  width: 40px;
 }
 
 .productInfoTop {
-  display: flex;
   align-items: center;
+  display: flex;
 }
 
 .productName {
@@ -59,9 +59,9 @@
 }
 
 .productInfoItem {
-  width: 150px;
   display: flex;
   justify-content: space-between;
+  width: 150px;
 }
 
 .productInfoValue {
@@ -69,10 +69,10 @@
 }
 
 .productBottom {
-  padding: 20px;
+  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
   margin: 20px;
   -webkit-box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
-  box-shadow: 0px 0px 15px -10px rgba(0, 0, 0, 0.75);
+  padding: 20px;
 }
 
 .productForm {
@@ -86,15 +86,15 @@
 }
 
 .productFormLeft > label {
-  margin-bottom: 10px;
   color: gray;
+  margin-bottom: 10px;
 }
 
 .productFormLeft > input {
-  margin-bottom: 10px;
   border: none;
-  padding: 5px;
   border-bottom: 1px solid gray;
+  margin-bottom: 10px;
+  padding: 5px;
 }
 
 .productFormLeft > select {
@@ -102,11 +102,11 @@
 }
 
 .productUploadImg {
-  width: 100px;
-  height: 100px;
   border-radius: 10px;
-  object-fit: cover;
+  height: 100px;
   margin-right: 20px;
+  object-fit: cover;
+  width: 100px;
 }
 
 .productFormRight {
@@ -116,16 +116,16 @@
 }
 
 .productUpload {
-  display: flex;
   align-items: center;
+  display: flex;
 }
 
 .productButton {
-  border: none;
-  padding: 5px;
-  border-radius: 5px;
   background-color: darkblue;
+  border: none;
+  border-radius: 5px;
   color: white;
-  font-weight: 600;
   cursor: pointer;
+  font-weight: 600;
+  padding: 5px;
 }
