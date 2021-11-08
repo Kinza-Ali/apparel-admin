@@ -1,25 +1,51 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
 import "./Orders.css";
+import { getOrder } from "../../redux/actions/orderActions";
+//extra
 import { orderRows } from "../../../dummyData";
 
 function Orders() {
+  //extra
   const [data, setData] = useState(orderRows);
+
+  let order = 0;
+  const dispatch = useDispatch();
+  order = useSelector((state) => state.allOrder.order.data);
+  console.log(order);
+
+  useEffect(() => {
+    console.log("calling use effect");
+    dispatch(getOrder());
+  }, [dispatch]);
 
   const handleDelete = (id) => {
     setData(data.filter((item) => item.id !== id));
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "_id", headerName: "ID", width: 190 },
     {
-      field: "ProductId",
-      headerName: "Product Id",
-      width: 200,
+      field: "item",
+      headerName: "Order",
+      width: 150,
       renderCell: (params) => {
-        return <div className="orderListItem">{params.row.item}</div>;
+        let item = params.row.item;
+        return (
+          <div>
+            {item.map((items) => {
+              return (
+                <div>
+                  <label>ProdId: {items.productId}</label>
+                  <label>Qty: {items.quantity}</label>
+                </div>
+              );
+            })}
+          </div>
+        );
       },
     },
     { field: "customerId", headerName: "Customer Id", width: 200 },
@@ -29,7 +55,7 @@ function Orders() {
       width: 190,
     },
     {
-      field: "totalPrice",
+      field: "price",
       headerName: "Total Price",
       width: 160,
     },
@@ -52,14 +78,15 @@ function Orders() {
       },
     },
   ];
-
+  if (!order) return <p></p>;
   return (
     <div className="orderList">
       <Link to="/newOrder">
         <button className="orderAddButton">Add Order</button>
       </Link>
       <DataGrid
-        rows={data}
+        getRowId={(row) => row._id}
+        rows={order}
         disableSelectionOnClick
         columns={columns}
         pageSize={10}
