@@ -4,26 +4,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
 import "./Orders.css";
-import { getOrder } from "../../redux/actions/orderActions";
-//extra
-import { orderRows } from "../../../dummyData";
+import { getOrders, deleteOrder } from "../../redux/actions/orderActions";
 
 function Orders() {
-  //extra
-  const [data, setData] = useState(orderRows);
-
   let order = 0;
   const dispatch = useDispatch();
   order = useSelector((state) => state.allOrder.order.data);
-  console.log(order);
 
   useEffect(() => {
     console.log("calling use effect");
-    dispatch(getOrder());
+    dispatch(getOrders());
   }, [dispatch]);
 
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+    console.log("Calling handle delete");
+    dispatch(deleteOrder(id));
+    dispatch(getOrders());
   };
 
   const columns = [
@@ -66,12 +62,12 @@ function Orders() {
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/order/" + params.row.id}>
+            <Link to={"/order/" + params.id}>
               <button className="orderListEdit">Edit</button>
             </Link>
             <DeleteOutline
               className="orderListDelete"
-              onClick={() => handleDelete(params.row.id)}
+              onClick={() => handleDelete(params.id)}
             />
           </>
         );

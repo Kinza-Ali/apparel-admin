@@ -8,5 +8,8 @@ export const ActionTypes = {
 
   //Orders
   GET_Order: "GET_Order",
+  GET_ORDER_BY_ID: "GET_ORDER_BY_ID",
+  UPDATE_ORDER: "UPDATE_ORDER",
+  REMOVE_ORDER: "REMOVE_ORDER",
   FAILED_Order: "FAILED_Order",
 };
