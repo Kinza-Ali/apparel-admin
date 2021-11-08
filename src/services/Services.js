@@ -1,5 +1,4 @@
 import axios from "axios";
-import { getOrders } from "../components/redux/actions/orderActions";
 
 axios.defaults.baseURL = "http://localhost:3000/api/";
 
@@ -30,18 +29,25 @@ class Services {
           resolve(res.data);
         })
         .catch((error) => {
+          console.log(error.request.response);
+          console.log(error.response.response);
           reject(error);
         });
     });
 
   put = (url, data) =>
     new Promise((resolve, reject) => {
+      console.log(url, data + "testing");
       axios
         .put(url, data)
         .then((res) => {
           resolve(res.data);
         })
         .catch((error) => {
+          console.log(JSON.stringify(error.request));
+
+          console.log(error.response.response);
+          console.log(error.data + "error");
           reject(error);
         });
     });
@@ -52,7 +58,7 @@ class Services {
       axios
         .delete(url)
         .then((res) => {
-          alert("Successfully delted");
+          console.log("Successfully deleted");
         })
         .catch((error) => {
           // if (error.request)

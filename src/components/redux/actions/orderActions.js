@@ -1,5 +1,4 @@
 import orderService from "../../../services/OrderService";
-import axios from "axios";
 
 import { ActionTypes } from "../constants/actionType";
 
@@ -34,9 +33,43 @@ export const getProductById = (id) => async (dispatch) => {
 export const deleteOrder = (id) => async (dispatch) => {
   try {
     console.log("Inside delete Order");
-    orderService.deleteOrder(id).then(() => {
-      console.log("before dispatch");
+    orderService.deleteOrder(id).then((data) => {
+      console.log(JSON.stringify(data));
       dispatch({ type: ActionTypes.REMOVE_ORDER });
+    });
+  } catch (error) {
+    dispatch({
+      type: ActionTypes.FAILED_Order,
+      payload: error,
+    });
+  }
+};
+
+export const addOrder = (orderList) => async (dispatch) => {
+  console.log("Inside Add Product");
+  console.log(orderList);
+  try {
+    // console.log(productItem);
+    orderService.postOrder(orderList).then((data) => {
+      console.log(JSON.stringify(data));
+      console.log("dispatched");
+    });
+  } catch (error) {
+    dispatch({
+      type: ActionTypes.FAILED_Order,
+      payload: error,
+    });
+  }
+};
+
+export const updateOrder = (id, data) => async (dispatch) => {
+  console.log("Inside Update");
+  console.log(data);
+
+  try {
+    orderService.putOrder(id, { deliveryDate: data }).then((data) => {
+      console.log(JSON.stringify(data));
+      console.log("dispatched");
     });
   } catch (error) {
     dispatch({

@@ -6,9 +6,9 @@ class OrderService extends Services {
   // }
   getOrder = () => this.get("order");
   getOrderById = (_id) => this.get("order/" + _id);
-  addOrder = (data) => this.post("order", data);
+  postOrder = (data) => this.post("order", data);
   deleteOrder = (_id) => this.delete("order/" + _id);
-  updateOrder = (_id, data) => this.put("order/" + _id, data);
+  putOrder = (_id, data) => this.put("order/" + _id, data);
 }
 
 let orderService = new OrderService();

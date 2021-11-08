@@ -1,8 +1,24 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useParams, useHistory } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import "./UpdateOrder.css";
+import { updateOrder } from "../../redux/actions/orderActions";
 
 function UpdateOrder() {
+  const dispatch = useDispatch();
+  let history = useHistory();
+  const { orderId } = useParams();
+  const [deliveryDate, setDeliveryDate] = useState();
+
+  const handleInput = (e) => {
+    setDeliveryDate(e.target.value);
+  };
+
+  const handleUpdate = () => {
+    dispatch(updateOrder(orderId, deliveryDate));
+    history.push({ pathname: "/orders" });
+  };
+
   return (
     <div className="order">
       <div className="orderTitleContainer">
@@ -47,10 +63,16 @@ function UpdateOrder() {
         <form className="orderForm">
           <div className="orderFormLeft">
             <label>Delivery Date</label>
-            <input type="text" placeholder="12-03-22" />
+            <input
+              type="text"
+              placeholder="12-03-22"
+              onChange={(e) => handleInput(e)}
+            />
           </div>
           <div className="orderFormRight">
-            <button className="orderButton">Update</button>
+            <button className="orderButton" onClick={handleUpdate}>
+              Update
+            </button>
           </div>
         </form>
       </div>
