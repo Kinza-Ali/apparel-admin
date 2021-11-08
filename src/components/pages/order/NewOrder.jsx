@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import AddIcon from "@mui/icons-material/Add";
 import RemoveOutlinedIcon from "@mui/icons-material/RemoveOutlined";
 import "./NewOrder.css";
@@ -7,36 +8,42 @@ import { addOrder } from "../../redux/actions/orderActions";
 
 function NewOrder() {
   const dispatch = useDispatch();
-  // const [productId, setProductId] = useState();
-  // const [quantity, setQuantity] = useState();
+  const history = useHistory();
   const [deliveryDate, setDeliveryDate] = useState();
   const [customerId, setCustomerId] = useState();
-  const [itemList, setItemList] = useState([
-    { productId: "", quantity: "" },
-    { productId: "", quantity: "" },
-  ]);
+  const [itemList, setItemList] = useState([{ productId: "", quantity: "" }]);
+
   const order = [
-    // {
-    //   label: "Product Id",
-    //   type: "text",
-    //   placeholder: 34454,
-    // },
     {
       label: "Customer Id",
       type: "text",
       placeholder: 34454,
     },
-    // {
-    //   label: "Quantity",
-    //   type: "text",
-    //   placeholder: 22,
-    // },
     {
       label: "Delivery Date",
       type: "text",
       placeholder: "2021-03-03",
     },
   ];
+
+  const handleInputChange = (e, index) => {
+    const { name, value } = e.target;
+    const list = [...itemList];
+    list[index][name] = value;
+    setItemList(list);
+  };
+
+  // handle click event of the Remove button
+  const handleRemoveClick = (index) => {
+    const list = [...itemList];
+    list.splice(index, 1);
+    setItemList(list);
+  };
+
+  // handle click event of the Add button
+  const handleAddClick = () => {
+    setItemList([...itemList, { productId: "", quantity: "" }]);
+  };
 
   const renderInputComponent = (order) => {
     return (
@@ -48,78 +55,54 @@ function NewOrder() {
     );
   };
 
-  const handleChange = (e, index) => {
-    const { name, value } = e.target;
-    const list = [...itemList];
-    list[index][name] = value;
-    setItemList(list);
-    console.log(itemList);
-  };
-
-  const handleAddClick = () => {
-    // console.log(JSON.stringify(itemList));
-    setItemList([...itemList, { productId: "", quantity: "" }]);
-  };
-
-  const handeleRemoveInputField = (index) => {
-    const list = [...itemList];
-    list.splice(index, 1);
-    setItemList(list);
-  };
-
   const handleInput = (e, label) => {
-    // if (label === "Product Id") {
-    //   setProductId(e.target.value);
-    // } else
     if (label === "Customer Id") {
       setCustomerId(e.target.value);
-    }
-    // else if (label === "Quantity") {
-    //   setQuantity(e.target.value);
-    // }
-    else if (label === "Delivery Date") {
+    } else if (label === "Delivery Date") {
       setDeliveryDate(e.target.value);
     }
   };
 
   const handleAddOrder = () => {
     const orderList = {
-      // item: [{ productId, quantity }],
-      itemList,
+      item: itemList,
       customerId,
-
       deliveryDate,
     };
+
     dispatch(addOrder(orderList));
+    history.push({ pathname: "/orders" });
   };
   return (
     <div className="newOrder">
       <h1 className="addOrderTitle">New Order</h1>
       <form className="addOrderForm">
-        {itemList.map((item, index) => {
-          console.log(index);
+        {itemList.map((x, i) => {
           return (
-            <div key={index} className="addOrder">
-              <label> Product Id</label>
+            <div key={i} className="addOrder">
               <input
-                type="text"
                 name="productId"
-                placeholder="45678903456"
-                value={item.productId}
-                onChange={(e) => handleChange(e, index)}
+                placeholder="657890456"
+                value={x.productId}
+                onChange={(e) => handleInputChange(e, i)}
               />
-              <label> Quantity</label>
               <input
-                type="text"
+                className="ml10"
                 name="quantity"
                 placeholder="23"
-                value={item.quantity}
-                onChange={(e) => handleChange(e, index)}
+                value={x.quantity}
+                onChange={(e) => handleInputChange(e, i)}
               />
-              <button onClick={() => handeleRemoveInputField(index)}>
-                <RemoveOutlinedIcon />
-              </button>
-              <button onClick={handleAddClick}>Add</button>
+              <div className="btn-box">
+                {itemList.length !== 1 && (
+                  <button className="mr10" onClick={() => handleRemoveClick(i)}>
+                    Remove
+                  </button>
+                )}
+                {itemList.length - 1 === i && (
+                  <button onClick={handleAddClick}>Add</button>
+                )}
+              </div>
             </div>
           );
         })}
