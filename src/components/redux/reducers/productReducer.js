@@ -21,8 +21,8 @@ export const getProductIdReducer = (
   switch (type) {
     case ActionTypes.GET_PRODUCTS_BY_ID:
       return { ...state, products: payload };
-    case ActionTypes.UPDATE_PRODUCT:
-      return { ...state };
+    // case ActionTypes.UPDATE_PRODUCT:
+    //   return { ...state, products: payload };
     case ActionTypes.REMOVE_SELECTED_PRODUCT:
       return {};
     default:

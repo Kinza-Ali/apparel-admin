@@ -41,13 +41,41 @@ export const deleteProduct = (id) => async (dispatch) => {
     });
   }
 };
-export const updateProduct = (id, productItem) => async (dispatch) => {
+
+export const updateProduct = (id, formData) => async (dispatch) => {
+  console.log("Inside Update");
   try {
+    // const { productName, productType, price, quantity, image } = productItem;
+    console.log(...formData);
     const updateRequest = await axios.put(
       "http://localhost:3000/api/product/" + id,
-      productItem
+      { headers: { "Content-Type": "multipart/form-data" } },
+      formData
     );
-    dispatch({ type: ActionTypes.UPDATE_PRODUCT });
+    console.log(JSON.stringify(updateRequest));
+    // dispatch({ type: ActionTypes.UPDATE_PRODUCT, payload: productItem });
+    console.log("dispatched");
+  } catch (error) {
+    dispatch({
+      type: ActionTypes.FAILED_GET_PRODUCTS,
+      payload: error,
+    });
+  }
+};
+
+export const addProduct = (formData) => async (dispatch) => {
+  console.log("Inside Update");
+  console.log(...formData);
+  try {
+    // console.log(productItem);
+    const updateRequest = await axios
+      .post("http://localhost:3000/api/product/", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      })
+      .then((res) => {
+        console.log(JSON.stringify(updateRequest));
+        console.log("dispatched");
+      });
   } catch (error) {
     dispatch({
       type: ActionTypes.FAILED_GET_PRODUCTS,

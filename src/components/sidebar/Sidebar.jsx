@@ -12,16 +12,10 @@ function sidebar() {
     <div className="sidebar">
       <div className="sidebarWrapper">
         <div className="sideMenu">
-          <h3 className="sidebarTitle">Dashboard</h3>
           <ul className="sidebarList">
             <Link to="/" className="link">
-              <li className="sidebarListItem ">
-                <HomeOutlinedIcon className="sidebarIcon" /> Home
-              </li>
-            </Link>
-            <Link to="/" className="link">
               <li className="sidebarListItem">
-                <Timeline className="sidebarIcon" /> Analytics
+                <Timeline className="sidebarIcon" /> Dashboard
               </li>
             </Link>
             <Link to="/products" className="link">
@@ -39,7 +33,7 @@ function sidebar() {
                 <PersonOutlineOutlinedIcon className="sidebarIcon" /> Users
               </li>
             </Link>
-            <li className="sidebarListItem">
+            <li className="sidebarListItem" style={{ marginTop: "300px" }}>
               <LogoutIcon className="sidebarIcon" /> Logout
             </li>
           </ul>

@@ -26,10 +26,11 @@
 .sidebarList {
   list-style: none;
   padding: 10px;
+  margin-left: 1px;
 }
 
 .sidebarListItem {
-  align-items: center;
+  align-items: flex-start;
   border-radius: 10px;
   display: flex;
   cursor: pointer;
