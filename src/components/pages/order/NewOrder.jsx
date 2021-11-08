@@ -80,12 +80,14 @@ function NewOrder() {
         {itemList.map((x, i) => {
           return (
             <div key={i} className="addOrder">
+              <label>Product Id</label>
               <input
                 name="productId"
                 placeholder="657890456"
                 value={x.productId}
                 onChange={(e) => handleInputChange(e, i)}
               />
+              <label> Quantity </label>
               <input
                 className="ml10"
                 name="quantity"
@@ -93,14 +95,16 @@ function NewOrder() {
                 value={x.quantity}
                 onChange={(e) => handleInputChange(e, i)}
               />
-              <div className="btn-box">
+              <div className="addOrder">
                 {itemList.length !== 1 && (
                   <button className="mr10" onClick={() => handleRemoveClick(i)}>
-                    Remove
+                    <RemoveOutlinedIcon />
                   </button>
                 )}
                 {itemList.length - 1 === i && (
-                  <button onClick={handleAddClick}>Add</button>
+                  <button className="ml10" onClick={handleAddClick}>
+                    <AddIcon />
+                  </button>
                 )}
               </div>
             </div>

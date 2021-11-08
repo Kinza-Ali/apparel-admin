@@ -46,7 +46,7 @@ function UpdateOrder() {
             </div>
             <div className="orderInfoItem">
               <span className="orderInfoKey">Delivery Date:</span>
-              <span className="orderInfoValue">12-02-22</span>
+              <span className="orderInfoValue">2021-02-01</span>
             </div>
             <div className="ordeInfoItem">
               <span className="orderInfoKey">Total Price:</span>
@@ -65,7 +65,7 @@ function UpdateOrder() {
             <label>Delivery Date</label>
             <input
               type="text"
-              placeholder="12-03-22"
+              placeholder="2021-03-01"
               onChange={(e) => handleInput(e)}
             />
           </div>
