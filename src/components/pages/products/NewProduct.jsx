@@ -22,7 +22,7 @@ function NewProducts() {
 
   const handleAddProduct = () => {
     const formData = new FormData();
-
+    console.log(image);
     formData.append("productName", productName);
     formData.append("image", image);
     formData.append("productType", productType);
@@ -51,7 +51,7 @@ function NewProducts() {
             type="file"
             id="file"
             accept="image/*"
-            onChange={(e) => fileSelectedHandler(e)}
+            onChange={(e) => setImage(e.target.files[0])}
           />
         </div>
         <div className="addProductItem">

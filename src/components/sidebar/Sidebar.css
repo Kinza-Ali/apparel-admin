@@ -36,6 +36,16 @@
   cursor: pointer;
   padding: 20px;
 }
+.sidebarListItemBtn {
+  align-items: flex-start;
+  border-radius: 10px;
+  display: flex;
+  cursor: pointer;
+  padding: 20px;
+  margin-top: 300px;
+  border: none;
+  background-color: rgb(251, 251, 255);
+}
 
 .sidebarListItem.active,
 .sidebarListItem:hover {

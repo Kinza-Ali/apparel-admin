@@ -1,0 +1,52 @@
+.main {
+  background-color: rgb(219, 226, 226);
+  height: 100vh;
+  flex: 4;
+}
+.container {
+  width: 60%;
+  padding: 10px;
+}
+.row {
+  background-color: white;
+  border-radius: 30px;
+  margin-top: 200px;
+  padding-left: 0;
+}
+.img {
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+.btn {
+  margin-left: 60px;
+  border: none;
+  outline: none;
+  height: 50px;
+  width: 50%;
+  background-color: black;
+  color: white;
+  border-radius: 4px;
+  font-weight: bold;
+}
+.btn:hover {
+  background-color: white;
+  border: 1px solid;
+  color: black;
+}
+.loginForm {
+  align-items: center;
+  justify-content: center;
+  display: flex-end;
+  margin-right: 1px;
+}
+.textField {
+  border: 3px solid #ccc;
+}
+.loginh1 {
+  justify-content: center;
+  display: grid;
+  margin: auto;
+}
+.MuiFormHelperText-root {
+  color: red !important;
+}
