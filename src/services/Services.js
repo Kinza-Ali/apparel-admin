@@ -23,6 +23,7 @@ class Services {
 
   post = (url, data) =>
     new Promise((resolve, reject) => {
+      console.log(data);
       axios
         .post(url, data)
         .then((res) => {

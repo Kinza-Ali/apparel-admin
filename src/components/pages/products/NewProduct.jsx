@@ -14,11 +14,11 @@ function NewProducts() {
   const [image, setImage] = useState("");
   // console.log("testing... " + productName, productType, price, quantity);
 
-  const fileSelectedHandler = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
-    console.log(file);
-  };
+  // const fileSelectedHandler = (e) => {
+  //   const file = e.target.files[0];
+  //   setImage(file);
+  //   console.log(file);
+  // };
 
   const handleAddProduct = () => {
     const formData = new FormData();

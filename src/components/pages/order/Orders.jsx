@@ -7,8 +7,8 @@ import "./Orders.css";
 import { getOrders, deleteOrder } from "../../redux/actions/orderActions";
 
 function Orders() {
-  let order = 0;
   const dispatch = useDispatch();
+  let order = 0;
   order = useSelector((state) => state.allOrder.order.data);
 
   useEffect(() => {
@@ -31,9 +31,9 @@ function Orders() {
         let item = params.row.item;
         return (
           <div>
-            {item.map((items) => {
+            {item.map((items, index) => {
               return (
-                <div>
+                <div key={index}>
                   <label>ProdId: {items.productId}</label>
                   <label>Qty: {items.quantity}</label>
                 </div>

@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import "./UpdateProduct.css";
 import { Publish } from "@material-ui/icons";
+import "./UpdateProduct.css";
 import { updateProduct } from "../../redux/actions/productActions";
-// import { Link } from "react-router-dom";
 
-function UpdateProduct({}) {
+function UpdateProduct() {
+  const dispatch = useDispatch();
   const { productId } = useParams();
   const [productName, setProductName] = useState();
   const [quantity, setQuantity] = useState();
@@ -15,11 +15,9 @@ function UpdateProduct({}) {
   const [fileInputState, setFileInputState] = useState("");
   const [selectedFile, setselectedFile] = useState("");
   const [previewSource, setPreviewSource] = useState();
-  const [image, setImage] = useState(""); //not used yet
+  // const [image, setImage] = useState(""); //not used yet
   const products = useSelector((state) => state.allProducts.products.data);
   const product = products;
-
-  const dispatch = useDispatch();
 
   const handleUpdate = () => {
     const formData = new FormData();

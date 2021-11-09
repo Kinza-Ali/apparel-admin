@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import "./UpdateOrder.css";
 import { updateOrder } from "../../redux/actions/orderActions";
 
 function UpdateOrder() {
   const dispatch = useDispatch();
-  let history = useHistory();
+  const history = useHistory();
   const { orderId } = useParams();
   const [deliveryDate, setDeliveryDate] = useState();
 

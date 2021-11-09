@@ -30,9 +30,7 @@ export const getProductById = (id) => async (dispatch) => {
 
 export const deleteProduct = (id) => async (dispatch) => {
   try {
-    const deleteRequest = await axios.delete(
-      "http://localhost:3000/api/product/" + id
-    );
+    await axios.delete("http://localhost:3000/api/product/" + id);
     dispatch({ type: ActionTypes.REMOVE_SELECTED_PRODUCT });
   } catch (error) {
     dispatch({

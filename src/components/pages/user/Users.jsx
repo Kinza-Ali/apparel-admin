@@ -1,41 +1,52 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { DeleteOutline } from "@material-ui/icons";
 import { DataGrid } from "@material-ui/data-grid";
 import "./Users.css";
-import { userRows } from "../../../dummyData";
+import {
+  getUserList,
+  deleteUser,
+  getUserDataById,
+} from "../../redux/actions/userActions";
 
 function Users() {
-  const [data, setData] = useState(userRows);
+  const dispatch = useDispatch();
+  let user = 0;
+  user = useSelector((state) => state.allUser.user.data);
+  console.log(user);
+
+  useEffect(() => {
+    console.log("calling use effect");
+    dispatch(getUserList());
+  }, [dispatch]);
+
+  const getUser = (id) => {
+    dispatch(getUserDataById(id));
+  };
 
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+    console.log("clicked");
+    dispatch(deleteUser(id));
+    dispatch(getUserList());
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "_id", headerName: "ID", width: 190 },
     {
-      field: "user",
-      headerName: "User",
+      field: "name",
+      headerName: "Name",
       width: 200,
-      renderCell: (params) => {
-        return (
-          <div className="userListUser">
-            <img className="userListImg" src={params.row.avatar} alt="" />
-            {params.row.username}
-          </div>
-        );
-      },
     },
     { field: "email", headerName: "Email", width: 200 },
     {
-      field: "D.O.B",
-      headerName: "D.O.B",
-      width: 120,
+      field: "contact",
+      headerName: "Contact No",
+      width: 190,
     },
     {
-      field: "contactNo",
-      headerName: "Contact No",
+      field: "role",
+      headerName: "Role",
       width: 160,
     },
     {
@@ -44,20 +55,25 @@ function Users() {
       width: 150,
       renderCell: (params) => {
         return (
-          <>
-            <Link to={"/users/" + params.row.id}>
-              <button className="userListEdit">Edit</button>
+          <div>
+            <Link to={"/users/" + params.id}>
+              <button
+                className="userListEdit"
+                // onClick={() => getUser(params.id)}
+              >
+                Edit
+              </button>
             </Link>
             <DeleteOutline
               className="userListDelete"
-              onClick={() => handleDelete(params.row.id)}
+              onClick={() => handleDelete(params.id)}
             />
-          </>
+          </div>
         );
       },
     },
   ];
-
+  if (!user) return <p></p>;
   return (
     <div className="userList">
       <Link to="/newUser">
@@ -65,7 +81,8 @@ function Users() {
       </Link>
 
       <DataGrid
-        rows={data}
+        getRowId={(row) => row._id}
+        rows={user}
         disableSelectionOnClick
         columns={columns}
         pageSize={10}
