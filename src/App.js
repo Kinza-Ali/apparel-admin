@@ -14,13 +14,14 @@ import NewOrder from "./components/pages/order/NewOrder";
 import Users from "./components/pages/user/Users";
 import UpdateUser from "./components/pages/user/UpdateUser";
 import NewUser from "./components/pages/user/NewUser";
+import userService from "./services/UserService";
 
 function App() {
   return (
     <Router>
       <Topbar />
       <div className="container">
-        <Sidebar />
+        {userService.isAdmin() && <Sidebar />}
         <Switch>
           <Route exact path="/">
             <Home />

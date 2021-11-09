@@ -57,7 +57,7 @@ function UpdateUser() {
       role,
     };
     dispatch(updateUserData(userId, user));
-    history.push({ pathname: "/user" });
+    history.push({ pathname: "/users" });
   };
 
   return (

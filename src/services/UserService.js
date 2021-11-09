@@ -1,4 +1,5 @@
 import Services from "./Services";
+import jwtDecode from "jwt-decode";
 class UserService extends Services {
   login = (email, password) =>
     new Promise((resolve, reject) => {
@@ -23,6 +24,30 @@ class UserService extends Services {
 
   isLoggedIn = () => {
     return localStorage.getItem("token") ? true : false;
+  };
+
+  getLoggedInUser = () => {
+    try {
+      const jwt = localStorage.getItem("token");
+      console.log(jwt);
+      return jwtDecode(jwt);
+    } catch (ex) {
+      return null;
+    }
+  };
+  isAdmin = () => {
+    if (this.isLoggedIn()) {
+      console.log(this.getLoggedInUser());
+      if (this.getLoggedInUser().role === 1) return true;
+      else return false;
+    } else return false;
+  };
+  isUser = () => {
+    if (this.isLoggedIn()) {
+      console.log(this.getLoggedInUser());
+      if (this.getLoggedInUser().role === 2) return true;
+      else return false;
+    } else return false;
   };
 
   getUsers = () => this.get("user");
