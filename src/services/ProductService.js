@@ -1,13 +1,14 @@
 import Services from "./Services";
 
 class ProductService extends Services {
-  constructor() {
-    super();
-  }
+  // constructor() {
+  //   super();
+  // }
   getProducts = () => this.get("product");
+  getProductById = (_id) => this.get("product/" + _id);
   addProduct = (data) => this.post("product", data);
   deleteProduct = (_id) => this.delete("product/" + _id);
-  updateProduct = (_id, data) => this.put("product/" + _id, data);
+  putProduct = (_id, data) => this.put("product/" + _id, data);
 }
 
 let productService = new ProductService();
