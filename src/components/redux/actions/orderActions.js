@@ -17,7 +17,7 @@ export const getOrders = () => async (dispatch) => {
   }
 };
 
-export const getProductById = (id) => async (dispatch) => {
+export const getOrderDtaById = (id) => async (dispatch) => {
   try {
     orderService.getOrderById(id).then((data) => {
       dispatch({ type: ActionTypes.GET_ORDER_BY_ID, payload: data });
@@ -59,6 +59,8 @@ export const addOrder = (orderList) => async (dispatch) => {
       type: ActionTypes.FAILED_Order,
       payload: error,
     });
+    console.log(error.UserMessage);
+    // res.send(error);
   }
 };
 

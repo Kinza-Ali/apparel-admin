@@ -1,6 +1,7 @@
 export const ActionTypes = {
   //Users
   LOGIN_USER: "LOGIN_USER",
+  ADD_USER: "ADD_USER",
   GET_USER: "GET_USER",
   GET_USER_BY_ID: "GET_USER_BY_ID",
   UPDATE_USER: "UPDATE_USER",

@@ -44,9 +44,18 @@ export const getUserDataById = (id) => async (dispatch) => {
     });
   } catch (error) {
     dispatch({
-      type: ActionTypes.FAILED_Order,
+      type: ActionTypes.FAILED_USER,
       payload: error,
     });
+    if (error.request) {
+      console.log(JSON.parse(error.request.response).UserMessage);
+      console.log("true");
+    }
+    if (error.response) {
+      console.log("response");
+      console.log(error.response.response);
+    }
+    // return JSON.pars;
   }
 };
 
@@ -57,12 +66,19 @@ export const addUserData = (data) => async (dispatch) => {
     userService.register(data).then((data) => {
       console.log(JSON.stringify(data));
       console.log("dispatched");
+      dispatch({ type: ActionTypes.ADD_USER, payload: data });
     });
   } catch (error) {
+    console.log("inside error");
     dispatch({
       type: ActionTypes.FAILED_USER,
-      payload: error,
+      payload: JSON.parse(error.request.response).UserMessage,
     });
+    if (error.request)
+      console.log(JSON.parse(error.request.response).UserMessage);
+    if (error.response) console.log(error.response.response);
+
+    return JSON.parse(error.request.response).UserMessage;
   }
 };
 
@@ -89,7 +105,7 @@ export const updateUserData = (id, data) => async (dispatch) => {
     userService
       .updateUser(id, {
         name: data.name,
-        contact: data.contcat,
+        contact: data.contact,
         role: data.role,
       })
       .then((data) => {
@@ -98,7 +114,7 @@ export const updateUserData = (id, data) => async (dispatch) => {
       });
   } catch (error) {
     dispatch({
-      type: ActionTypes.FAILED_Order,
+      type: ActionTypes.FAILED_USER,
       payload: error,
     });
   }
