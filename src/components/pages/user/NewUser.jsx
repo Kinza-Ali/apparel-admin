@@ -3,6 +3,11 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import "./NewUser.css";
 import { addUserData } from "../../redux/actions/userActions";
+import {
+  phoneRegx,
+  nameRegx,
+  emailRegx,
+} from "../../Validation/RegxValidations";
 
 function NewUser() {
   const dispatch = useDispatch();
@@ -12,6 +17,10 @@ function NewUser() {
   const [password, setPassword] = useState();
   const [role, setRole] = useState();
   const [contact, setContact] = useState();
+  const [nameError, setNameError] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
 
   const user = [
     {
@@ -19,24 +28,28 @@ function NewUser() {
       type: "text",
       placeholder: "John Smith",
       isRole: false,
+      error: nameError,
     },
     {
       label: "Email",
       type: "text",
       placeholder: "john@gmail.com",
       isRole: false,
+      error: emailError,
     },
     {
       label: "Password",
       type: "text",
       placeholder: "password",
       isRole: false,
+      error: passwordError,
     },
     {
       label: "Phone",
       type: "text",
       placeholder: "phone",
       isRole: false,
+      error: phoneError,
     },
     {
       label: "Role",
@@ -61,16 +74,31 @@ function NewUser() {
     }
   };
 
-  const handleAddUser = () => {
-    const userList = { name, email, password, contact, role };
-    dispatch(addUserData(userList));
-    history.push({ pathname: "/users" });
+  const handleAddUser = (e) => {
+    e.preventDefault();
+    const isPhoneValid = phoneRegx.test(contact);
+    const isNameValid = nameRegx.test(name);
+    const isEmailValid = emailRegx.test(email);
+
+    if (!isNameValid) {
+      setNameError("Name Must be alphabets");
+    } else if (!isEmailValid) {
+      setEmailError("Enter Correct Email");
+    } else if (password.length < 6) {
+      setPasswordError("Pasword must be 6 character long");
+    } else if (!isPhoneValid) {
+      setPhoneError("Enter a valid contact number");
+    } else {
+      const userList = { name, email, password, contact, role };
+      dispatch(addUserData(userList));
+      // history.push({ pathname: "/users" });
+    }
   };
 
   const renderInputComponent = (user) => {
     if (user.isRole) {
       return (
-        <>
+        <div>
           <div className="newUserRole">
             <input
               type="radio"
@@ -89,7 +117,7 @@ function NewUser() {
             />
             <label htmlFor="user">User</label>
           </div>
-        </>
+        </div>
       );
     }
     return (
@@ -110,10 +138,12 @@ function NewUser() {
             <div key={index} className="newUserItem">
               <label>{user.label}</label>
               {renderInputComponent(user)}
+              <p style={{ color: "red" }}>{user.error}</p>
             </div>
           );
         })}
-        <button className="newUserButton" onClick={handleAddUser}>
+
+        <button className="newUserButton" onClick={(e) => handleAddUser(e)}>
           Add User
         </button>
       </form>

@@ -9,14 +9,21 @@ function UpdateOrder() {
   const history = useHistory();
   const { orderId } = useParams();
   const [deliveryDate, setDeliveryDate] = useState();
+  const [dateError, setDateError] = useState("");
 
   const handleInput = (e) => {
     setDeliveryDate(e.target.value);
   };
 
   const handleUpdate = () => {
-    dispatch(updateOrder(orderId, deliveryDate));
-    history.push({ pathname: "/orders" });
+    let dateRegx = /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/;
+    let dateValidation = dateRegx.test(deliveryDate);
+    if (!dateValidation) {
+      setDateError("Enter date in YYYY-MM-DD format");
+    } else {
+      dispatch(updateOrder(orderId, deliveryDate));
+      history.push({ pathname: "/orders" });
+    }
   };
 
   return (
@@ -68,6 +75,9 @@ function UpdateOrder() {
               placeholder="2021-03-01"
               onChange={(e) => handleInput(e)}
             />
+            <p style={{ color: "red", paddingRight: 20, marginTop: 20 }}>
+              {dateError}
+            </p>
           </div>
           <div className="orderFormRight">
             <button className="orderButton" onClick={handleUpdate}>

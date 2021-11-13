@@ -33,8 +33,7 @@ export const getOrderDtaById = (id) => async (dispatch) => {
 export const deleteOrder = (id) => async (dispatch) => {
   try {
     console.log("Inside delete Order");
-    orderService.deleteOrder(id).then((data) => {
-      console.log(JSON.stringify(data));
+    orderService.deleteOrder(id).then(() => {
       dispatch({ type: ActionTypes.REMOVE_ORDER });
     });
   } catch (error) {

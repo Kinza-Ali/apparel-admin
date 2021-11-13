@@ -17,22 +17,25 @@ class Services {
         .catch((error) => {
           if (error.request) console.log(error.request.response);
           if (error.response) console.log(error.response.response);
-          reject(error);
+          // reject(error);
         });
     });
 
   post = (url, data) =>
     new Promise((resolve, reject) => {
-      console.log(data);
+      // console.log(data);
       axios
         .post(url, data)
         .then((res) => {
           resolve(res.data);
         })
         .catch((error) => {
-          console.log(error.request.response);
-          console.log(error.response.response);
-          reject(error);
+          if (error.request.response)
+            console.log(JSON.parse(error.request.response).UserMessage);
+          if (error.response.response)
+            console.log(JSON.parse(error.response.response).UserMessage);
+
+          reject(JSON.parse(error.request.response).UserMessage);
         });
     });
 
@@ -45,10 +48,8 @@ class Services {
           resolve(res.data);
         })
         .catch((error) => {
-          console.log(JSON.stringify(error.request));
-
+          console.log(error.request.response);
           console.log(error.response.response);
-          console.log(error.data + "error");
           reject(error);
         });
     });
@@ -60,6 +61,7 @@ class Services {
         .delete(url)
         .then((res) => {
           console.log("Successfully deleted");
+          resolve(res);
         })
         .catch((error) => {
           // if (error.request)

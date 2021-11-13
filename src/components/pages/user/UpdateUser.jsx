@@ -12,6 +12,7 @@ import {
   updateUserData,
   getUserDataById,
 } from "../../redux/actions/userActions";
+import { phoneRegx, nameRegx } from "../../Validation/RegxValidations";
 
 function UpdateUser() {
   const dispatch = useDispatch();
@@ -20,19 +21,26 @@ function UpdateUser() {
   const [name, setName] = useState();
   const [role, setRole] = useState();
   const [contact, setContact] = useState();
+  const [errorValidation, setErrorValidation] = useState("");
   // const user = useSelector((state) => state.allUser.user.data);
   const userList = [
     {
       label: "Full Name",
-      placeholder: "user.name",
+      placeholder: "John",
+      isRole: false,
+    },
+    // {
+    //   label: "Role",
+    //   placeholder: "user.role",
+    // },
+    {
+      label: "Phone",
+      placeholder: "",
+      isRole: false,
     },
     {
       label: "Role",
-      placeholder: "user.role",
-    },
-    {
-      label: "Phone",
-      placeholder: "user.contact",
+      isRole: true,
     },
   ];
   // useEffect(() => {
@@ -40,24 +48,67 @@ function UpdateUser() {
   //   dispatch(getUserDataById(userId));
   // }, [dispatch]);
   // console.log(user._id + " FORM UPDATE USER");
+  const handleRadioButton = (e) => {
+    console.log(e.target.value);
+    setRole(e.target.value);
+  };
 
   const handleInput = (e, label) => {
     if (label === "Full Name") {
       setName(e.target.value);
-    } else if (label === "Role") {
-      setRole(e.target.value);
     } else if (label === "Phone") {
       setContact(e.target.value);
     }
   };
   const handleUpdate = () => {
-    const user = {
-      name,
-      contact,
-      role,
-    };
-    dispatch(updateUserData(userId, user));
-    history.push({ pathname: "/users" });
+    const isPhoneValid = phoneRegx.test(contact);
+    const isNameValid = nameRegx.test(name);
+    if (!isNameValid) {
+      setErrorValidation("Name Must be alphabets");
+    } else if (!isPhoneValid) {
+      setErrorValidation("Phone should be +91 0123456789");
+    } else {
+      const user = {
+        name,
+        contact,
+        role,
+      };
+      dispatch(updateUserData(userId, user));
+      history.push({ pathname: "/users" });
+    }
+  };
+  const renderInputComponent = (user) => {
+    if (user.isRole) {
+      return (
+        <div>
+          <div className="newUserRole">
+            <input
+              type="radio"
+              name="role"
+              id="admin"
+              value="1"
+              onChange={(e) => handleRadioButton(e)}
+            />
+            <label htmlFor="admin">Admin</label>
+            <input
+              type="radio"
+              name="role"
+              id="user"
+              value="2"
+              onChange={(e) => handleRadioButton(e)}
+            />
+            <label htmlFor="user">User</label>
+          </div>
+        </div>
+      );
+    }
+    return (
+      <input
+        type={user.type}
+        placeholder={user.placeholder}
+        onChange={(e) => handleInput(e, user.label)}
+      />
+    );
   };
 
   return (
@@ -104,15 +155,11 @@ function UpdateUser() {
                 return (
                   <div key={i} className="userUpdateItem">
                     <label>{user.label}</label>
-                    <input
-                      type="text"
-                      placeholder={user.placeholder}
-                      className="userUpdateInput"
-                      onChange={(e) => handleInput(e, user.label)}
-                    />
+                    {renderInputComponent(user)}
                   </div>
                 );
               })}
+              <p style={{ color: "red" }}>{errorValidation}</p>
             </div>
             <div className="userUpdateRight">
               <button className="userUpdateButton" onClick={handleUpdate}>

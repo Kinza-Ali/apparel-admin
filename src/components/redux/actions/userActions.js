@@ -61,13 +61,19 @@ export const getUserDataById = (id) => async (dispatch) => {
 
 export const addUserData = (data) => async (dispatch) => {
   console.log("Inside Add User Data method");
-  console.log(data);
+  // console.log(data);
   try {
-    userService.register(data).then((data) => {
-      console.log(JSON.stringify(data));
-      console.log("dispatched");
-      dispatch({ type: ActionTypes.ADD_USER, payload: data });
-    });
+    userService
+      .register(data)
+      .then((data) => {
+        console.log(JSON.stringify(data));
+        console.log("dispatched");
+        dispatch({ type: ActionTypes.ADD_USER, payload: data });
+      })
+      .catch((error) => {
+        debugger;
+        console.log(error);
+      });
   } catch (error) {
     console.log("inside error");
     dispatch({
@@ -77,7 +83,7 @@ export const addUserData = (data) => async (dispatch) => {
     if (error.request)
       console.log(JSON.parse(error.request.response).UserMessage);
     if (error.response) console.log(error.response.response);
-
+    console.log(error);
     return JSON.parse(error.request.response).UserMessage;
   }
 };
@@ -85,8 +91,7 @@ export const addUserData = (data) => async (dispatch) => {
 export const deleteUser = (id) => async (dispatch) => {
   try {
     console.log("Inside delete Order");
-    userService.deleteUser(id).then((data) => {
-      console.log(JSON.stringify(data));
+    userService.deleteUser(id).then(() => {
       dispatch({ type: ActionTypes.REMOVE_USER });
     });
   } catch (error) {
