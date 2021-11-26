@@ -3,13 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-import {
-  getProducts,
-  deleteProduct,
-  getProductById,
-} from "../../redux/actions/productActions";
-//not required
-// import { productRows } from "../../../dummyData";
+import { getProducts, deleteProduct } from "../../redux/actions/productActions";
 
 import "./Products.css";
 
@@ -17,19 +11,14 @@ function Products() {
   let products = 0;
   const dispatch = useDispatch();
   products = useSelector((state) => state.allProducts.products.data);
-  console.log(products);
 
   useEffect(() => {
-    console.log("calling use effect");
     dispatch(getProducts());
   }, [dispatch]);
 
-  const getProduct = (id) => {
-    dispatch(getProductById(id));
-  };
-
   const handleDelete = (id) => {
     dispatch(deleteProduct(id));
+    dispatch(getProducts());
   };
 
   const columns = [
@@ -64,12 +53,9 @@ function Products() {
       width: 150,
       renderCell: (params) => {
         return (
-          <div>
+          <>
             <Link to={"/product/" + params.id}>
-              <button
-                className="productListEdit"
-                onClick={() => getProduct(params.id)}
-              >
+              <button className="productListEdit" onClick={() => {}}>
                 Edit
               </button>
             </Link>
@@ -79,7 +65,7 @@ function Products() {
                 handleDelete(params.id);
               }}
             />
-          </div>
+          </>
         );
       },
     },

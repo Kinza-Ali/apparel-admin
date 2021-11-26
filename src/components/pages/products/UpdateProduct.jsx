@@ -1,56 +1,132 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { Link, useParams, useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import "./UpdateProduct.css";
-import { Publish } from "@material-ui/icons";
 import { updateProduct } from "../../redux/actions/productActions";
-// import { Link } from "react-router-dom";
 
-function UpdateProduct({}) {
+function UpdateProduct() {
+  const dispatch = useDispatch();
+  const history = useHistory();
   const { productId } = useParams();
   const [productName, setProductName] = useState();
   const [quantity, setQuantity] = useState();
   const [price, setPrice] = useState();
   const [productType, setProductType] = useState();
-  const [fileInputState, setFileInputState] = useState("");
-  const [selectedFile, setselectedFile] = useState("");
-  const [previewSource, setPreviewSource] = useState();
-  const [image, setImage] = useState(""); //not used yet
-  const products = useSelector((state) => state.allProducts.products.data);
-  const product = products;
+  const [nameError, setNameError] = useState("");
+  const [quantityError, setQuantityError] = useState("");
+  const [priceError, setPriceError] = useState("");
+  // eslint-disable-next-line
+  const [image, setImage] = useState("");
 
-  const dispatch = useDispatch();
+  const products = [
+    {
+      label: "Product Name",
+      type: "text",
+      placeholder: "Bag",
+      error: nameError,
+      isType: false,
+    },
 
-  const handleUpdate = () => {
-    const formData = new FormData();
+    {
+      label: "Quantity",
+      type: "text",
+      placeholder: "33",
+      isType: false,
+      error: quantityError,
+    },
+    {
+      label: "Price",
+      type: "text",
+      placeholder: "6000",
+      isType: false,
+      error: priceError,
+    },
+    {
+      label: "Product Type",
+      type: "radio",
+      isType: true,
+    },
+  ];
 
-    formData.append("productName", productName);
-    formData.append("image", selectedFile);
-    formData.append("productType", productType);
-    formData.append("price", price);
-    formData.append("quantity", quantity);
-    // let productItem = {
-    //   productName,
-    //   productType,
-    //   price,
-    //   quantity,
-    //   // image: JSON.stringify(previewSource),
-    // };
-    console.log("about to call api");
-    dispatch(updateProduct(productId, formData));
+  const handleInput = (e, label) => {
+    if (label === "Product Name") {
+      setProductName(e.target.value);
+    } else if (label === "Price") {
+      setPrice(e.target.value);
+    } else if (label === "Quantity") {
+      setQuantity(e.target.value);
+    }
   };
 
-  const fileSelectedHandler = (file) => {
-    previewFile(file);
-    setselectedFile(file);
+  const handleRadioButton = (e) => {
+    setProductType(e.target.value);
   };
 
-  const previewFile = (file) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onloadend = () => {
-      setPreviewSource(reader.result);
-    };
+  const renderInputComponent = (product) => {
+    if (product.isType) {
+      return (
+        <div>
+          <div className="newProductType">
+            <input
+              type="radio"
+              name="productType"
+              value="1"
+              onChange={(e) => handleRadioButton(e)}
+            />
+            <label htmlFor="clothing">Clothing</label>
+            <input
+              type="radio"
+              name="productType"
+              value="2"
+              onChange={(e) => handleRadioButton(e)}
+            />
+            <label htmlFor="bags">Bags</label>
+            <input
+              type="radio"
+              name="productType"
+              value="3"
+              onChange={(e) => handleRadioButton(e)}
+            />
+            <label htmlFor="shoes">Shoes</label>
+            <input
+              type="radio"
+              name="productType"
+              value="4"
+              onChange={(e) => handleRadioButton(e)}
+            />
+            <label htmlFor="jewellery">Jewellery</label>
+          </div>
+        </div>
+      );
+    } else {
+      return (
+        <input
+          type={product.type}
+          placeholder={product.placeholder}
+          onChange={(e) => handleInput(e, product.label)}
+        />
+      );
+    }
+  };
+
+  const handleUpdate = (e) => {
+    e.preventDefault();
+    if (productName.length < 3) {
+      setNameError("Product name must be greater than 3 characters");
+    } else if (quantity < 1) {
+      setQuantityError("Quantity must be greater than 0");
+    } else if (price < 50) {
+      setPriceError("price must be greater than 50");
+    } else {
+      const productList = {
+        productName,
+        quantity,
+        price,
+        productType,
+      };
+      dispatch(updateProduct(productId, productList));
+      history.push({ pathname: "/products" });
+    }
   };
 
   return (
@@ -65,55 +141,31 @@ function UpdateProduct({}) {
       <div className="productBottom">
         <form className="productForm">
           <div className="productFormLeft">
-            <label>Product Name</label>
-            <input
-              type="text"
-              // placeholder={product.productName}
-              onChange={(e) => setProductName(e.target.value)}
-            />
-            <label>Quantity</label>
-            <input
-              type="quantity"
-              // placeholder={product.quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-            />
-            <label>Price</label>
-            <input
-              type="price"
-              // placeholder={product.price}
-              onChange={(e) => setPrice(e.target.value)}
-            />
-            <label>Product Type</label>
-            <input
-              type="productType"
-              // placeholder={product.productType}
-              onChange={(e) => setProductType(e.target.value)}
-            />
+            {products.map((product) => {
+              return (
+                <div className="addProductItem">
+                  <label>{product.label}</label>
+                  {renderInputComponent(product)}
+                  <p style={{ color: "red" }}>{product.error}</p>
+                </div>
+              );
+            })}
           </div>
           <div className="productFormRight">
             <div className="productUpload">
-              <label htmlFor="file">
-                <Publish />
-              </label>
+              <label htmlFor="file"></label>
               <input
                 type="file"
-                name="image"
-                value={fileInputState}
-                onChange={(e) => fileSelectedHandler(e.target.files[0])}
+                id="file"
+                accept="image/*"
+                onChange={(e) => setImage(e.target.files[0])}
               />
             </div>
-            <button className="productButton" onClick={handleUpdate}>
+            <button className="productButton" onClick={(e) => handleUpdate(e)}>
               Update
             </button>
           </div>
         </form>
-        {previewSource && (
-          <img
-            src={previewSource}
-            alt="chosen"
-            style={{ heigth: "200px", width: "200px" }}
-          />
-        )}
       </div>
     </div>
   );

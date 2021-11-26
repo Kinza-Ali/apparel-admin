@@ -1,0 +1,104 @@
+.mainContainer {
+  flex: 4;
+}
+.subContainer {
+  width: 80%;
+  height: 70vh;
+  padding: 10px;
+  margin-left: 110px;
+}
+.imgContainer {
+  border-radius: 30px;
+  margin-top: 50px;
+  margin-left: 10px;
+}
+
+.submitBtn {
+  margin-left: 60px;
+  border: none;
+  outline: none;
+  height: 50px;
+  width: 50%;
+  background-color: black;
+  color: white;
+  border-radius: 4px;
+  font-weight: bold;
+}
+.submitBtn:hover {
+  background-color: white;
+  border: 1px solid;
+  color: black;
+}
+
+.loginH1Tag {
+  justify-content: center;
+  display: grid;
+  margin: auto;
+}
+.MuiFormHelperText-root {
+  color: red !important;
+}
+
+.minidiv {
+  background-color: #fae1dd;
+  position: relative;
+  width: 100%;
+  height: 80vh;
+  display: flex;
+  margin-left: 50px;
+  border-radius: 20px;
+}
+.imageDiv {
+  position: relative;
+  width: 50%;
+  height: 80%;
+  background-color: #fae1dd;
+}
+
+.contentDiv {
+  display: flex;
+  width: 50%;
+  height: 100%;
+  margin-top: 150px;
+}
+
+.imageTag {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+  margin-top: 10px;
+  margin-left: 30px;
+}
+
+.formBox {
+  width: 50%;
+  margin-left: 150px;
+}
+
+h1 {
+  font-weight: 600;
+  font-style: 1.5em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  display: inline-block;
+  letter-spacing: 1px;
+}
+
+.inputDiv {
+  margin-bottom: 20px;
+  border-radius: 25px;
+}
+
+.inputField {
+  font-size: 16px;
+  margin-bottom: 5px;
+  display: inline-block;
+  border-radius: 25px;
+  padding-left: 10px;
+  background-color: #fae1dd;
+}

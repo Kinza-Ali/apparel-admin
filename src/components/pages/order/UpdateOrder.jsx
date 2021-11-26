@@ -1,16 +1,32 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useParams, useHistory } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import "./UpdateOrder.css";
+import { updateOrder } from "../../redux/actions/orderActions";
 
 function UpdateOrder() {
-  const order = {
-    productId: 48754,
-    quantity: 2,
-    deliveryDate: "12-04-21",
-    totalPrice: 484,
-    customerId: 59859,
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const { orderId } = useParams();
+  const [deliveryDate, setDeliveryDate] = useState();
+  const [dateError, setDateError] = useState("");
+
+  const handleInput = (e) => {
+    setDeliveryDate(e.target.value);
   };
-  console.log(order);
+
+  const handleUpdate = () => {
+    // eslint-disable-next-line
+    let dateRegx = /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/;
+    let dateValidation = dateRegx.test(deliveryDate);
+    if (!dateValidation) {
+      setDateError("Enter date in YYYY-MM-DD format");
+    } else {
+      dispatch(updateOrder(orderId, deliveryDate));
+      history.push({ pathname: "/orders" });
+    }
+  };
+
   return (
     <div className="order">
       <div className="orderTitleContainer">
@@ -28,14 +44,26 @@ function UpdateOrder() {
             <span className="orderItem">Items: </span>
           </div>
           <div className="orderInfoBottom">
-            {Object.keys(order).map((key, index) => {
-              return (
-                <div className="orderInfoItem">
-                  <span className="orderInfo">{key}</span>
-                  <span className="orderInfoValue">{order[key]}</span>
-                </div>
-              );
-            })}
+            <div className="orderInfoItem">
+              <span className="orderInfoKey">Product Id:</span>
+              <span className="orderInfoValue">44474587</span>
+            </div>
+            <div className="orderInfoItem">
+              <span className="orderInfoKey">Quantity:</span>
+              <span className="orderInfoValue">3</span>
+            </div>
+            <div className="orderInfoItem">
+              <span className="orderInfoKey">Delivery Date:</span>
+              <span className="orderInfoValue">2021-02-01</span>
+            </div>
+            <div className="ordeInfoItem">
+              <span className="orderInfoKey">Total Price:</span>
+              <span className="orderInfoValue">5,000 PKR</span>
+            </div>
+            <div className="ordeInfoItem">
+              <span className="orderInfoKey">Customer Id:</span>
+              <span className="orderInfoValue">4465784</span>
+            </div>
           </div>
         </div>
       </div>
@@ -43,10 +71,19 @@ function UpdateOrder() {
         <form className="orderForm">
           <div className="orderFormLeft">
             <label>Delivery Date</label>
-            <input type="text" placeholder="12-03-22" />
+            <input
+              type="text"
+              placeholder="2021-03-01"
+              onChange={(e) => handleInput(e)}
+            />
+            <p style={{ color: "red", paddingRight: 20, marginTop: 20 }}>
+              {dateError}
+            </p>
           </div>
           <div className="orderFormRight">
-            <button className="orderButton">Update</button>
+            <button className="orderButton" onClick={handleUpdate}>
+              Update
+            </button>
           </div>
         </form>
       </div>

@@ -289,56 +289,74 @@ export const img = {
 export const orderRows = [
   {
     id: 1,
-    item: 4875547,
+    item: [{ productId: 4875547, quantity: 3 }],
     customerId: "15896923",
     deliveryDate: "12-02-22",
     totalPrice: "7,000 PkR",
   },
   {
     id: 2,
-    item: 4875547,
+    item: [{ productId: 487557, quantity: 3 }],
     customerId: "15896923",
     deliveryDate: "12-02-22",
     totalPrice: "7,000 PkR",
   },
   {
     id: 3,
-    item: 4875547,
+    item: [
+      { productId: 4875547, quantity: 3 },
+      { productId: 3456, quantity: 4 },
+    ],
     customerId: "15896923",
     deliveryDate: "12-02-22",
     totalPrice: "7,000 PkR",
   },
   {
     id: 4,
-    item: 4875547,
+    item: [
+      { productId: 4875547, quantity: 3 },
+      { productId: 3456, quantity: 4 },
+    ],
     customerId: "15896923",
     deliveryDate: "12-02-22",
     totalPrice: "7,000 PkR",
   },
   {
     id: 5,
-    item: 4875547,
+    item: [
+      { productId: 4875547, quantity: 3 },
+      { productId: 3456, quantity: 4 },
+    ],
     customerId: "15896923",
     deliveryDate: "12-02-22",
     totalPrice: "7,000 PkR",
   },
   {
     id: 6,
-    item: 4875547,
+    item: [
+      { productId: 4875547, quantity: 3 },
+      { productId: 3456, quantity: 4 },
+    ],
     customerId: "15896923",
     deliveryDate: "12-02-22",
     totalPrice: "7,000 PkR",
   },
   {
     id: 7,
-    item: 4875547,
+    item: [
+      { productId: 4875547, quantity: 3 },
+      { productId: 3456, quantity: 4 },
+    ],
     customerId: "15896923",
     deliveryDate: "12-02-22",
     totalPrice: "7,000 PkR",
   },
   {
     id: 8,
-    item: 4875547,
+    item: [
+      { productId: 4875547, quantity: 3 },
+      { productId: 3456, quantity: 4 },
+    ],
     customerId: "15896923",
     deliveryDate: "12-02-22",
     totalPrice: "7,000 PkR",

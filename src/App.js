@@ -1,4 +1,6 @@
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import "./App.css";
+import Login from "./components/auth/Login";
 import Topbar from "./components/topbar/Topbar";
 import Sidebar from "./components/sidebar/Sidebar";
 import Home from "./components/pages/home/Home";
@@ -9,20 +11,23 @@ import SearchProduct from "./components/pages/products/SearchProduct";
 import Orders from "./components/pages/order/Orders";
 import UpdateOrder from "./components/pages/order/UpdateOrder";
 import NewOrder from "./components/pages/order/NewOrder";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import Users from "./components/pages/user/Users";
 import UpdateUser from "./components/pages/user/UpdateUser";
 import NewUser from "./components/pages/user/NewUser";
+import userService from "./services/UserService";
 
 function App() {
   return (
     <Router>
       <Topbar />
       <div className="container">
-        <Sidebar />
+        {userService.isAdmin() && <Sidebar />}
         <Switch>
           <Route exact path="/">
             <Home />
+          </Route>
+          <Route exact path="/login">
+            <Login />
           </Route>
           <Route exact path="/users">
             <Users />

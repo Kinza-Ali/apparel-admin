@@ -1,44 +1,133 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 import "./NewProduct.css";
 import { addProduct } from "../../redux/actions/productActions";
 
 function NewProducts() {
+  const history = useHistory();
   const dispatch = useDispatch();
-
   const [productName, setProductName] = useState();
   const [quantity, setQuantity] = useState();
   const [productType, setProductType] = useState();
   const [price, setPrice] = useState();
+  const [nameError, setNameError] = useState("");
+  const [quantityError, setQuantityError] = useState("");
+  const [priceError, setPriceError] = useState("");
   const [image, setImage] = useState("");
-  // console.log("testing... " + productName, productType, price, quantity);
 
-  const fileSelectedHandler = (e) => {
-    const file = e.target.files[0];
-    setImage(file);
-    console.log(file);
+  const products = [
+    {
+      label: "Product Name",
+      type: "text",
+      placeholder: "Sweat Shirt",
+      error: nameError,
+      isType: false,
+    },
+
+    {
+      label: "Quantity",
+      type: "text",
+      placeholder: "33",
+      isType: false,
+      error: quantityError,
+    },
+    {
+      label: "Price",
+      type: "text",
+      placeholder: "price in PKR",
+      isType: false,
+      error: priceError,
+    },
+    {
+      label: "Product Type",
+      type: "radio",
+      isType: true,
+    },
+  ];
+
+  const handleInput = (e, label) => {
+    if (label === "Product Name") {
+      setProductName(e.target.value);
+    } else if (label === "Price") {
+      setPrice(e.target.value);
+    } else if (label === "Quantity") {
+      setQuantity(e.target.value);
+    }
   };
 
-  const handleAddProduct = () => {
-    const formData = new FormData();
+  const handleRadioButton = (e) => {
+    setProductType(e.target.value);
+  };
 
-    formData.append("productName", productName);
-    formData.append("image", image);
-    formData.append("productType", productType);
-    formData.append("price", price);
-    formData.append("quantity", quantity);
-    // let productItem = {
-    //   productName,
-    //   image,
-    //   productType,
-    //   price,
-    //   quantity,
+  const renderInputComponent = (product) => {
+    if (product.isType) {
+      return (
+        <div>
+          <div className="newProductType">
+            <input
+              type="radio"
+              name="productType"
+              value="1"
+              onChange={(e) => handleRadioButton(e)}
+            />
+            <label htmlFor="clothing">Clothing</label>
+            <input
+              type="radio"
+              name="productType"
+              value="2"
+              onChange={(e) => handleRadioButton(e)}
+            />
+            <label htmlFor="bags">Bags</label>
+            <input
+              type="radio"
+              name="productType"
+              value="3"
+              onChange={(e) => handleRadioButton(e)}
+            />
+            <label htmlFor="shoes">Shoes</label>
+            <input
+              type="radio"
+              name="productType"
+              value="4"
+              onChange={(e) => handleRadioButton(e)}
+            />
+            <label htmlFor="jewellery">Jewellery</label>
+          </div>
+        </div>
+      );
+    }
+    return (
+      <input
+        type={product.type}
+        placeholder={product.placeholder}
+        onChange={(e) => handleInput(e, product.label)}
+      />
+    );
+  };
 
-    //   // image: JSON.stringify(previewSource),
-    // };
-    console.log("about to call api");
-    dispatch(addProduct(formData));
+  const handleAddProduct = (e) => {
+    e.preventDefault();
+
+    if (productName.length < 3) {
+      setNameError("Product name must be greater than 3 characters");
+    } else if (quantity < 1) {
+      setQuantityError("Quantity must be greater than 0");
+    } else if (price < 50) {
+      setPriceError("price must be greater than 50");
+    } else {
+      const formData = new FormData();
+
+      formData.append("productName", productName);
+      formData.append("image", image);
+      formData.append("productType", productType);
+      formData.append("price", price);
+      formData.append("quantity", quantity);
+
+      dispatch(addProduct(formData));
+      history.push({ pathname: "/products" });
+    }
   };
 
   return (
@@ -51,46 +140,23 @@ function NewProducts() {
             type="file"
             id="file"
             accept="image/*"
-            onChange={(e) => fileSelectedHandler(e)}
-          />
-        </div>
-        <div className="addProductItem">
-          <label>Name</label>
-          <input
-            type="text"
-            placeholder="Sweat Shirts"
-            onChange={(e) => {
-              setProductName(e.target.value);
-              // console.log(productName);
-            }}
-          />
-        </div>
-        <div className="addProductItem">
-          <label>Quantity</label>
-          <input
-            type="text"
-            placeholder="123"
-            onChange={(e) => setQuantity(e.target.value)}
-          />
-        </div>
-        <div className="addProductItem">
-          <label>Product Type</label>
-          <input
-            type="text"
-            placeholder="Clothing"
-            onChange={(e) => setProductType(e.target.value)}
-          />
-        </div>
-        <div className="addProductItem">
-          <label>Price</label>
-          <input
-            type="text"
-            placeholder="6,000 PKR"
-            onChange={(e) => setPrice(e.target.value)}
+            onChange={(e) => setImage(e.target.files[0])}
           />
         </div>
 
-        <button className="addProductButton" onClick={handleAddProduct}>
+        {products.map((product) => {
+          return (
+            <div className="addProductItem">
+              <label>{product.label}</label>
+              {renderInputComponent(product)}
+              <p style={{ color: "red" }}>{product.error}</p>
+            </div>
+          );
+        })}
+        <button
+          className="addProductButton"
+          onClick={(e) => handleAddProduct(e)}
+        >
           Create
         </button>
       </form>
