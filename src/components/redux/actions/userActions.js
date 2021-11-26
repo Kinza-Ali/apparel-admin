@@ -2,19 +2,22 @@ import userService from "../../../services/UserService";
 import { ActionTypes } from "../constants/actionType";
 
 export const loginUser = (email, password) => async (dispatch) => {
-  console.log("Inside Add Product");
-  console.log(email + ": email" + "password: " + password);
-
   try {
     // console.log(productItem);
-    userService.login(email, password).then((data) => {
-      console.log(JSON.stringify(data) + "data");
+    userService
+      .login(email, password)
+      .then((data) => {
+        console.log(JSON.stringify(data) + "data");
 
-      dispatch({ type: ActionTypes.LOGIN_USER, payload: data.token });
-      window.location.href = "/";
-      console.log("dispatched");
-    });
+        dispatch({ type: ActionTypes.LOGIN_USER, payload: data.token });
+        window.location.href = "/";
+        console.log("dispatched");
+      })
+      .catch((error) => {
+        console.log("error from catch" + error);
+      });
   } catch (error) {
+    console.log("error from trycatch" + error);
     dispatch({
       type: ActionTypes.FAILED_USER,
       payload: error,
@@ -59,41 +62,43 @@ export const getUserDataById = (id) => async (dispatch) => {
   }
 };
 
-export const addUserData = (data) => async (dispatch) => {
+export const addUserData = (data) => (dispatch) => {
   console.log("Inside Add User Data method");
   // console.log(data);
-  try {
-    userService
-      .register(data)
-      .then((data) => {
-        console.log(JSON.stringify(data));
-        console.log("dispatched");
-        dispatch({ type: ActionTypes.ADD_USER, payload: data });
-      })
-      .catch((error) => {
-        debugger;
-        console.log(error);
+
+  userService
+    .register(data)
+    .then((data) => {
+      // debugger;
+      console.log(JSON.stringify(data));
+      console.log("dispatched");
+      dispatch({ type: ActionTypes.ADD_USER, payload: data });
+      alert("User successfully Added");
+    })
+    .catch((error) => {
+      // debugger;
+      dispatch({
+        type: ActionTypes.FAILED_USER,
+        payload: error,
       });
-  } catch (error) {
-    console.log("inside error");
-    dispatch({
-      type: ActionTypes.FAILED_USER,
-      payload: JSON.parse(error.request.response).UserMessage,
+      console.log(error);
     });
-    if (error.request)
-      console.log(JSON.parse(error.request.response).UserMessage);
-    if (error.response) console.log(error.response.response);
-    console.log(error);
-    return JSON.parse(error.request.response).UserMessage;
-  }
+
+  // dispatch({
+  //   type: ActionTypes.FAILED_USER,
+  //   payload: JSON.parse(error.request.response).UserMessage,
+  // });
+  // if (error.request)
+  //   console.log(JSON.parse(error.request.response).UserMessage);
+  // if (error.response) console.log(error.response.response);
+  // console.log(error);
+  // return JSON.parse(error.request.response).UserMessage;
 };
 
 export const deleteUser = (id) => async (dispatch) => {
   try {
     console.log("Inside delete Order");
-    userService.deleteUser(id).then(() => {
-      dispatch({ type: ActionTypes.REMOVE_USER });
-    });
+    userService.deleteUser(id);
   } catch (error) {
     dispatch({
       type: ActionTypes.FAILED_USER,
