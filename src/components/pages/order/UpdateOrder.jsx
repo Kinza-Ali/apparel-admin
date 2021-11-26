@@ -1,7 +1,6 @@
 import React from "react";
-import "./UpdateOrder.css";
 import { Link } from "react-router-dom";
-import { Publish } from "@material-ui/icons";
+import "./UpdateOrder.css";
 
 function UpdateOrder() {
   const order = {

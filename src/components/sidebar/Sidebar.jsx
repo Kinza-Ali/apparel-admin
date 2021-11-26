@@ -1,26 +1,21 @@
 import React from "react";
-import "./Sidebar.css";
+import { Link } from "react-router-dom";
 import { Timeline, Storefront } from "@material-ui/icons";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import { Link } from "react-router-dom";
+import "./Sidebar.css";
+
 function sidebar() {
   return (
     <div className="sidebar">
       <div className="sidebarWrapper">
         <div className="sideMenu">
-          <h3 className="sidebarTitle">Dashboard</h3>
           <ul className="sidebarList">
             <Link to="/" className="link">
-              <li className="sidebarListItem ">
-                <HomeOutlinedIcon className="sidebarIcon" /> Home
-              </li>
-            </Link>
-            <Link to="/" className="link">
               <li className="sidebarListItem">
-                <Timeline className="sidebarIcon" /> Analytics
+                <Timeline className="sidebarIcon" /> Dashboard
               </li>
             </Link>
             <Link to="/products" className="link">
@@ -38,7 +33,7 @@ function sidebar() {
                 <PersonOutlineOutlinedIcon className="sidebarIcon" /> Users
               </li>
             </Link>
-            <li className="sidebarListItem">
+            <li className="sidebarListItem" style={{ marginTop: "300px" }}>
               <LogoutIcon className="sidebarIcon" /> Logout
             </li>
           </ul>

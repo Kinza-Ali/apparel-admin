@@ -1,29 +1,48 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-import { productRows } from "../../../dummyData";
-import { Link } from "react-router-dom";
-import { useState } from "react";
+import {
+  getProducts,
+  deleteProduct,
+  getProductById,
+} from "../../redux/actions/productActions";
+//not required
+// import { productRows } from "../../../dummyData";
+
 import "./Products.css";
 
 function Products() {
-  const [data, setData] = useState(productRows);
+  let products = 0;
+  const dispatch = useDispatch();
+  products = useSelector((state) => state.allProducts.products.data);
+  console.log(products);
+
+  useEffect(() => {
+    console.log("calling use effect");
+    dispatch(getProducts());
+  }, [dispatch]);
+
+  const getProduct = (id) => {
+    dispatch(getProductById(id));
+  };
 
   const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+    dispatch(deleteProduct(id));
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "_id", headerName: "ID", width: 190 },
     {
-      field: "product",
+      field: "productName",
       headerName: "Product",
       width: 200,
       renderCell: (params) => {
         return (
           <div className="productListItem">
-            <img className="productListImg" src={params.row.img} alt="" />
-            {params.row.name}
+            <img className="productListImg" src={params.row.image} alt="" />
+            {params.row.productName}
           </div>
         );
       },
@@ -45,30 +64,43 @@ function Products() {
       width: 150,
       renderCell: (params) => {
         return (
-          <>
-            <Link to={"/product/" + params.row.id}>
-              <button className="productListEdit">Edit</button>
+          <div>
+            <Link to={"/product/" + params.id}>
+              <button
+                className="productListEdit"
+                onClick={() => getProduct(params.id)}
+              >
+                Edit
+              </button>
             </Link>
             <DeleteOutline
               className="productListDelete"
-              onClick={() => handleDelete(params.row.id)}
+              onClick={() => {
+                handleDelete(params.id);
+              }}
             />
-          </>
+          </div>
         );
       },
     },
   ];
-
+  if (!products) return <p></p>;
   return (
     <div className="productList">
-      <Link to="/newProduct">
-        <button className="productAddButton">Add Product</button>
-      </Link>
+      <div className="topButtons">
+        <Link to="/searchProduct">
+          <button className="productSearchButton">Search Product</button>
+        </Link>
+        <Link to="/newProduct">
+          <button className="productAddButton">Add Product</button>
+        </Link>
+      </div>
       <DataGrid
-        rows={data}
+        getRowId={(row) => row._id}
+        rows={products}
         disableSelectionOnClick
         columns={columns}
-        pageSize={10}
+        pageSize={8}
       />
     </div>
   );

@@ -1,68 +1,101 @@
 import React from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
 import "./NewProduct.css";
+import { addProduct } from "../../redux/actions/productActions";
 
-function newProducts() {
-  const products = [
-    {
-      label: "Image",
-      type: "file",
-      isFile: true,
-    },
-    {
-      label: "Quantity",
-      type: "text",
-      isFile: false,
-      placeholder: 12,
-    },
-    {
-      label: "Product Name",
-      type: "text",
-      isFile: false,
-      placeholder: "add product name",
-    },
-    {
-      label: "Quantity",
-      type: "text",
-      isFile: false,
-      placeholder: "33",
-    },
-    {
-      label: "Price",
-      type: "text",
-      isFile: false,
-      placeholder: "price in PKR",
-    },
-  ];
+function NewProducts() {
+  const dispatch = useDispatch();
 
-  const renderInputComponent = (product) => {
-    if (product.isFile) {
-      return <input type={product.type} accept="image/*" />;
-    }
-    return <input type={product.type} placeholder={product.placeholder} />;
+  const [productName, setProductName] = useState();
+  const [quantity, setQuantity] = useState();
+  const [productType, setProductType] = useState();
+  const [price, setPrice] = useState();
+  const [image, setImage] = useState("");
+  // console.log("testing... " + productName, productType, price, quantity);
+
+  const fileSelectedHandler = (e) => {
+    const file = e.target.files[0];
+    setImage(file);
+    console.log(file);
+  };
+
+  const handleAddProduct = () => {
+    const formData = new FormData();
+
+    formData.append("productName", productName);
+    formData.append("image", image);
+    formData.append("productType", productType);
+    formData.append("price", price);
+    formData.append("quantity", quantity);
+    // let productItem = {
+    //   productName,
+    //   image,
+    //   productType,
+    //   price,
+    //   quantity,
+
+    //   // image: JSON.stringify(previewSource),
+    // };
+    console.log("about to call api");
+    dispatch(addProduct(formData));
   };
 
   return (
     <div className="newProduct">
       <h1 className="addProductTitle">New Product</h1>
       <form className="addProductForm">
-        {products.map((product) => {
-          <div className="addProductItem">
-            <label>{product.label}</label>
-            {renderInputComponent(product)}
-          </div>;
-        })}
-        {products.map((product) => {
-          return (
-            <div className="addProductItem">
-              <label>{product.label}</label>
-              {renderInputComponent(product)}
-            </div>
-          );
-        })}
-        <button className="addProductButton">Create</button>
+        <div className="addProductItem">
+          <label>Image</label>
+          <input
+            type="file"
+            id="file"
+            accept="image/*"
+            onChange={(e) => fileSelectedHandler(e)}
+          />
+        </div>
+        <div className="addProductItem">
+          <label>Name</label>
+          <input
+            type="text"
+            placeholder="Sweat Shirts"
+            onChange={(e) => {
+              setProductName(e.target.value);
+              // console.log(productName);
+            }}
+          />
+        </div>
+        <div className="addProductItem">
+          <label>Quantity</label>
+          <input
+            type="text"
+            placeholder="123"
+            onChange={(e) => setQuantity(e.target.value)}
+          />
+        </div>
+        <div className="addProductItem">
+          <label>Product Type</label>
+          <input
+            type="text"
+            placeholder="Clothing"
+            onChange={(e) => setProductType(e.target.value)}
+          />
+        </div>
+        <div className="addProductItem">
+          <label>Price</label>
+          <input
+            type="text"
+            placeholder="6,000 PKR"
+            onChange={(e) => setPrice(e.target.value)}
+          />
+        </div>
+
+        <button className="addProductButton" onClick={handleAddProduct}>
+          Create
+        </button>
       </form>
     </div>
   );
 }
 
-export default newProducts;
+export default NewProducts;

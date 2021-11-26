@@ -1,47 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import "./UpdateProduct.css";
-import { Link } from "react-router-dom";
 import { Publish } from "@material-ui/icons";
+import { updateProduct } from "../../redux/actions/productActions";
+// import { Link } from "react-router-dom";
 
-function UpdateProduct() {
-  const product = {
-    id: 48754,
-    quantity: 2,
-    productType: 2,
-    price: 484,
+function UpdateProduct({}) {
+  const { productId } = useParams();
+  const [productName, setProductName] = useState();
+  const [quantity, setQuantity] = useState();
+  const [price, setPrice] = useState();
+  const [productType, setProductType] = useState();
+  const [fileInputState, setFileInputState] = useState("");
+  const [selectedFile, setselectedFile] = useState("");
+  const [previewSource, setPreviewSource] = useState();
+  const [image, setImage] = useState(""); //not used yet
+  const products = useSelector((state) => state.allProducts.products.data);
+  const product = products;
+
+  const dispatch = useDispatch();
+
+  const handleUpdate = () => {
+    const formData = new FormData();
+
+    formData.append("productName", productName);
+    formData.append("image", selectedFile);
+    formData.append("productType", productType);
+    formData.append("price", price);
+    formData.append("quantity", quantity);
+    // let productItem = {
+    //   productName,
+    //   productType,
+    //   price,
+    //   quantity,
+    //   // image: JSON.stringify(previewSource),
+    // };
+    console.log("about to call api");
+    dispatch(updateProduct(productId, formData));
   };
-  const productUpdate = [
-    {
-      label: "Product Name",
-      type: "text",
-      isFile: false,
-      placeholder: "Top",
-    },
-    {
-      label: "Quantity",
-      type: "text",
-      isFile: false,
-      placeholder: 12,
-    },
-    {
-      label: "Product Type",
-      type: "text",
-      isFile: false,
-      placeholder: "2",
-    },
-    {
-      label: "Quantity",
-      type: "text",
-      isFile: false,
-      placeholder: "33",
-    },
-    {
-      label: "Price",
-      type: "text",
-      isFile: false,
-      placeholder: "4849",
-    },
-  ];
+
+  const fileSelectedHandler = (file) => {
+    previewFile(file);
+    setselectedFile(file);
+  };
+
+  const previewFile = (file) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onloadend = () => {
+      setPreviewSource(reader.result);
+    };
+  };
+
   return (
     <div className="product">
       <div className="productTitleContainer">
@@ -50,63 +61,59 @@ function UpdateProduct() {
           <button className="productAddButtons">Add Product</button>
         </Link>
       </div>
-      <div className="productTop">
-        <div className="productTopRight">
-          <div className="productInfoTop">
-            <img
-              src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ6T7AEoS7OO3z6byiJZaT8l2pmGo8BJP2tw&usqp=CAU"
-              alt=""
-              className="productInfoImg"
-            />
-            <span className="productName">Bag</span>
-          </div>
-          <div className="productInfoBottom">
-            {Object.keys(product).map((key, index) => {
-              return (
-                <div className="productInfoItem">
-                  <span className="productInfoKey">{key}</span>
-                  <span className="productInfoValue">{product[key]}</span>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
+
       <div className="productBottom">
         <form className="productForm">
           <div className="productFormLeft">
-            {productUpdate.map((product) => {
-              return (
-                <>
-                  <label>{product.label}</label>
-                  <input
-                    type={product.type}
-                    placeholder={product.placeholder}
-                  />
-                </>
-              );
-            })}
+            <label>Product Name</label>
+            <input
+              type="text"
+              // placeholder={product.productName}
+              onChange={(e) => setProductName(e.target.value)}
+            />
+            <label>Quantity</label>
+            <input
+              type="quantity"
+              // placeholder={product.quantity}
+              onChange={(e) => setQuantity(e.target.value)}
+            />
+            <label>Price</label>
+            <input
+              type="price"
+              // placeholder={product.price}
+              onChange={(e) => setPrice(e.target.value)}
+            />
+            <label>Product Type</label>
+            <input
+              type="productType"
+              // placeholder={product.productType}
+              onChange={(e) => setProductType(e.target.value)}
+            />
           </div>
           <div className="productFormRight">
             <div className="productUpload">
-              <img
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSZ6T7AEoS7OO3z6byiJZaT8l2pmGo8BJP2tw&usqp=CAU"
-                alt=""
-                className="productUploadImg"
-              />
-              <label for="file">
+              <label htmlFor="file">
                 <Publish />
               </label>
               <input
                 type="file"
-                id="file"
-                style={{ display: "none" }}
-                accept="image/*"
+                name="image"
+                value={fileInputState}
+                onChange={(e) => fileSelectedHandler(e.target.files[0])}
               />
             </div>
-            <button className="productButton">Update</button>
+            <button className="productButton" onClick={handleUpdate}>
+              Update
+            </button>
           </div>
         </form>
+        {previewSource && (
+          <img
+            src={previewSource}
+            alt="chosen"
+            style={{ heigth: "200px", width: "200px" }}
+          />
+        )}
       </div>
     </div>
   );

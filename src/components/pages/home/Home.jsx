@@ -1,7 +1,7 @@
 import React from "react";
+import "./Home.css";
 import Chart from "../../chart/Chart";
 import HomeInfo from "../../homeInfo/HomeInfo";
-import "./Home.css";
 import WidgetLg from "../../widgetLg/WidgetLg";
 import WidgetSm from "../../widgetSm/WidgetSm";
 import { productData } from "../../../dummyData";
