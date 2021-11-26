@@ -15,7 +15,19 @@ class UserService extends Services {
         });
     });
 
-  register = (data) => this.post("user/register", data);
+  register = (data) =>
+    new Promise((resolve, reject) => {
+      // debugger;
+      this.post("user/register", data)
+        .then((data) => {
+          resolve(data);
+        })
+        .catch((err) => {
+          // debugger;
+          console.log(err);
+          reject(err.data.UserMessage);
+        });
+    });
 
   logout = () => {
     localStorage.removeItem("token");
@@ -29,7 +41,7 @@ class UserService extends Services {
   getLoggedInUser = () => {
     try {
       const jwt = localStorage.getItem("token");
-      console.log(jwt);
+      // console.log(jwt);
       return jwtDecode(jwt);
     } catch (ex) {
       return null;
@@ -37,14 +49,14 @@ class UserService extends Services {
   };
   isAdmin = () => {
     if (this.isLoggedIn()) {
-      console.log(this.getLoggedInUser());
+      // console.log(this.getLoggedInUser());
       if (this.getLoggedInUser().role === 1) return true;
       else return false;
     } else return false;
   };
   isUser = () => {
     if (this.isLoggedIn()) {
-      console.log(this.getLoggedInUser());
+      // console.log(this.getLoggedInUser());
       if (this.getLoggedInUser().role === 2) return true;
       else return false;
     } else return false;
