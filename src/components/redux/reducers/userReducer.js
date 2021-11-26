@@ -16,10 +16,9 @@ export const userReducer = (state = initialState, { type, payload }) => {
     case ActionTypes.GET_USER_BY_ID:
       return { ...state, selectedUser: payload, error: initialState.error };
     case ActionTypes.FAILED_USER:
-      console.log("inside user: " + payload);
       return { ...state, error: payload };
     case ActionTypes.REMOVE_USER:
-      return {};
+      return { ...state, user: initialState.user };
     default:
       return state;
   }
