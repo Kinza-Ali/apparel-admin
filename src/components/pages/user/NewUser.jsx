@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import "./NewUser.css";
 import { addUserData } from "../../redux/actions/userActions";
@@ -14,13 +14,15 @@ function NewUser() {
   const history = useHistory();
   const [name, setName] = useState();
   const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [password, setPassword] = useState("");
   const [role, setRole] = useState();
   const [contact, setContact] = useState();
   const [nameError, setNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [phoneError, setPhoneError] = useState("");
   const [passwordError, setPasswordError] = useState("");
+
+  const userError = useSelector((state) => state.allUser.error);
 
   const user = [
     {
@@ -35,11 +37,11 @@ function NewUser() {
       type: "text",
       placeholder: "john@gmail.com",
       isRole: false,
-      error: emailError,
+      error: userError ? userError : emailError,
     },
     {
       label: "Password",
-      type: "text",
+      type: "password",
       placeholder: "password",
       isRole: false,
       error: passwordError,
@@ -58,7 +60,6 @@ function NewUser() {
   ];
 
   const handleRadioButton = (e) => {
-    console.log(e.target.value);
     setRole(e.target.value);
   };
 
@@ -91,7 +92,7 @@ function NewUser() {
     } else {
       const userList = { name, email, password, contact, role };
       dispatch(addUserData(userList));
-      // history.push({ pathname: "/users" });
+      history.push({ pathname: "/users" });
     }
   };
 

@@ -12,7 +12,6 @@ function Orders() {
   order = useSelector((state) => state.allOrder.order.data);
 
   useEffect(() => {
-    console.log("calling use effect");
     dispatch(getOrders());
   }, [dispatch]);
 

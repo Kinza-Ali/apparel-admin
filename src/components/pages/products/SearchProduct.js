@@ -6,7 +6,7 @@ import { getProductById } from "../../redux/actions/productActions";
 function SearchProduct() {
   const dispatch = useDispatch();
   const product = useSelector((state) => state.getProductById.products.data);
-  console.log(product);
+
   const [id, setId] = useState();
   const getData = () => {
     dispatch(getProductById(id));

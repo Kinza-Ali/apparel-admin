@@ -16,6 +16,7 @@ function UpdateOrder() {
   };
 
   const handleUpdate = () => {
+    // eslint-disable-next-line
     let dateRegx = /^\d{4}\-(0?[1-9]|1[012])\-(0?[1-9]|[12][0-9]|3[01])$/;
     let dateValidation = dateRegx.test(deliveryDate);
     if (!dateValidation) {

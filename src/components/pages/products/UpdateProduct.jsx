@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { Publish } from "@material-ui/icons";
+import { useDispatch } from "react-redux";
 import "./UpdateProduct.css";
 import { updateProduct } from "../../redux/actions/productActions";
 
@@ -16,12 +15,14 @@ function UpdateProduct() {
   const [nameError, setNameError] = useState("");
   const [quantityError, setQuantityError] = useState("");
   const [priceError, setPriceError] = useState("");
+  // eslint-disable-next-line
+  const [image, setImage] = useState("");
 
   const products = [
     {
       label: "Product Name",
       type: "text",
-      placeholder: "Sweat Shirt",
+      placeholder: "Bag",
       error: nameError,
       isType: false,
     },
@@ -36,7 +37,7 @@ function UpdateProduct() {
     {
       label: "Price",
       type: "text",
-      placeholder: "price in PKR",
+      placeholder: "6000",
       isType: false,
       error: priceError,
     },
@@ -58,11 +59,8 @@ function UpdateProduct() {
   };
 
   const handleRadioButton = (e) => {
-    console.log(e.target.value);
     setProductType(e.target.value);
   };
-  // const products = useSelector((state) => state.allProducts.products.data);
-  // const product = products;
 
   const renderInputComponent = (product) => {
     if (product.isType) {
@@ -113,8 +111,6 @@ function UpdateProduct() {
 
   const handleUpdate = (e) => {
     e.preventDefault();
-
-    console.log(productName);
     if (productName.length < 3) {
       setNameError("Product name must be greater than 3 characters");
     } else if (quantity < 1) {
@@ -122,14 +118,13 @@ function UpdateProduct() {
     } else if (price < 50) {
       setPriceError("price must be greater than 50");
     } else {
-      let productItem = {
+      const productList = {
         productName,
-        productType,
-        price,
         quantity,
+        price,
+        productType,
       };
-      console.log("about to call api");
-      dispatch(updateProduct(productId, productItem));
+      dispatch(updateProduct(productId, productList));
       history.push({ pathname: "/products" });
     }
   };
@@ -157,6 +152,15 @@ function UpdateProduct() {
             })}
           </div>
           <div className="productFormRight">
+            <div className="productUpload">
+              <label htmlFor="file"></label>
+              <input
+                type="file"
+                id="file"
+                accept="image/*"
+                onChange={(e) => setImage(e.target.files[0])}
+              />
+            </div>
             <button className="productButton" onClick={(e) => handleUpdate(e)}>
               Update
             </button>

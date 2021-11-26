@@ -7,26 +7,19 @@ import "./Users.css";
 import {
   getUserList,
   deleteUser,
-  getUserDataById,
+  // getUserDataById,
 } from "../../redux/actions/userActions";
 
 function Users() {
   const dispatch = useDispatch();
   let user = 0;
   user = useSelector((state) => state.allUser.user.data);
-  console.log(user);
 
   useEffect(() => {
-    console.log("calling use effect");
     dispatch(getUserList());
   }, [dispatch]);
 
-  const getUser = (id) => {
-    dispatch(getUserDataById(id));
-  };
-
   const handleDelete = (id) => {
-    console.log("clicked");
     dispatch(deleteUser(id));
     dispatch(getUserList());
   };
@@ -57,12 +50,7 @@ function Users() {
         return (
           <div>
             <Link to={"/users/" + params.id}>
-              <button
-                className="userListEdit"
-                // onClick={() => getUser(params.id)}
-              >
-                Edit
-              </button>
+              <button className="userListEdit">Edit</button>
             </Link>
             <DeleteOutline
               className="userListDelete"

@@ -15,6 +15,8 @@ function NewProducts() {
   const [nameError, setNameError] = useState("");
   const [quantityError, setQuantityError] = useState("");
   const [priceError, setPriceError] = useState("");
+  const [image, setImage] = useState("");
+
   const products = [
     {
       label: "Product Name",
@@ -56,7 +58,6 @@ function NewProducts() {
   };
 
   const handleRadioButton = (e) => {
-    console.log(e.target.value);
     setProductType(e.target.value);
   };
 
@@ -109,7 +110,6 @@ function NewProducts() {
   const handleAddProduct = (e) => {
     e.preventDefault();
 
-    console.log(productName);
     if (productName.length < 3) {
       setNameError("Product name must be greater than 3 characters");
     } else if (quantity < 1) {
@@ -117,14 +117,15 @@ function NewProducts() {
     } else if (price < 50) {
       setPriceError("price must be greater than 50");
     } else {
-      let productItem = {
-        productName,
-        productType,
-        price,
-        quantity,
-      };
-      console.log("about to call api");
-      dispatch(addProduct(productItem));
+      const formData = new FormData();
+
+      formData.append("productName", productName);
+      formData.append("image", image);
+      formData.append("productType", productType);
+      formData.append("price", price);
+      formData.append("quantity", quantity);
+
+      dispatch(addProduct(formData));
       history.push({ pathname: "/products" });
     }
   };
@@ -133,6 +134,16 @@ function NewProducts() {
     <div className="newProduct">
       <h1 className="addProductTitle">New Product</h1>
       <form className="addProductForm">
+        <div className="addProductItem">
+          <label>Image</label>
+          <input
+            type="file"
+            id="file"
+            accept="image/*"
+            onChange={(e) => setImage(e.target.files[0])}
+          />
+        </div>
+
         {products.map((product) => {
           return (
             <div className="addProductItem">
