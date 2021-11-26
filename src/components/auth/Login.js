@@ -25,27 +25,23 @@ function Login() {
     // history.push({ pathname: "/home" });
   };
   return (
-    <div className="main">
-      <div className="container">
-        <div className="row ">
-          <div className="col-lg-5 ">
-            <img
-              src="./assets/images/test.jpeg"
-              className="img-fluid img"
-              alt=""
-            />
+    <div className="mainContainer">
+      <div className="subContainer">
+        <div className="minidiv">
+          <div className="imageDiv imgContainer">
+            <img src="./assets/test1.jpeg" className="imageTag" alt="" />
           </div>
-          <div className="col-lg-6  pt-4 loginForm">
-            <h1 className="font-weight-bold loginh1  py-3 ">Login</h1>
-            <Formik
-              initialValues={initialValues}
-              onSubmit={onSubmit}
-              validationSchema={validationSchema}
-            >
-              {(props) => (
-                <Form>
-                  <div className="form-row loginForm">
-                    <div className="col-lg-7">
+          <div className="contentDiv">
+            <div className="formBox">
+              <h1 className="font-weight-bold loginH1Tag  py-3 ">Login</h1>
+              <Formik
+                initialValues={initialValues}
+                onSubmit={onSubmit}
+                validationSchema={validationSchema}
+              >
+                {(props) => (
+                  <Form>
+                    <div className="inputDiv">
                       <Field
                         as={TextField}
                         name="email"
@@ -54,10 +50,10 @@ function Login() {
                         fullWidth
                         required
                         helperText={<ErrorMessage name="email" />}
-                        className="my-1 p-4"
+                        className=" inputField"
                       />
                     </div>
-                    <div className="col-lg-7">
+                    <div className="inputDiv">
                       <Field
                         as={TextField}
                         name="password"
@@ -71,25 +67,25 @@ function Login() {
                             style={{ color: "red" }}
                           />
                         }
-                        className="my-1 p-4"
+                        className="inputField"
                       />
                     </div>
-                    <div className="col-lg-7">
+                    <div className="inputDiv">
                       <Button
                         type="submit"
                         color="primary"
                         variant="contained"
                         disabled={props.isSubmitting}
                         fullWidth
-                        className="btn"
+                        className="submitBtn"
                       >
                         {props.isSubmitting ? "Loading" : "Sign in"}
                       </Button>
                     </div>
-                  </div>
-                </Form>
-              )}
-            </Formik>
+                  </Form>
+                )}
+              </Formik>
+            </div>
           </div>
         </div>
       </div>
