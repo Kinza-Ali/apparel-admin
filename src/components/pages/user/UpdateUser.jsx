@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useParams, useHistory } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import "./UpdateUser.css";
 import {
   Person,
@@ -8,10 +8,7 @@ import {
   PermIdentity,
   PhoneAndroid,
 } from "@material-ui/icons";
-import {
-  updateUserData,
-  getUserDataById,
-} from "../../redux/actions/userActions";
+import { updateUserData } from "../../redux/actions/userActions";
 import { phoneRegx, nameRegx } from "../../Validation/RegxValidations";
 
 function UpdateUser() {
@@ -22,20 +19,16 @@ function UpdateUser() {
   const [role, setRole] = useState();
   const [contact, setContact] = useState();
   const [errorValidation, setErrorValidation] = useState("");
-  // const user = useSelector((state) => state.allUser.user.data);
+
   const userList = [
     {
       label: "Full Name",
       placeholder: "John",
       isRole: false,
     },
-    // {
-    //   label: "Role",
-    //   placeholder: "user.role",
-    // },
     {
       label: "Phone",
-      placeholder: "",
+      placeholder: "1824783782748",
       isRole: false,
     },
     {
@@ -43,13 +36,8 @@ function UpdateUser() {
       isRole: true,
     },
   ];
-  // useEffect(() => {
-  //   console.log("calling use effect");
-  //   dispatch(getUserDataById(userId));
-  // }, [dispatch]);
-  // console.log(user._id + " FORM UPDATE USER");
+
   const handleRadioButton = (e) => {
-    console.log(e.target.value);
     setRole(e.target.value);
   };
 
@@ -60,7 +48,8 @@ function UpdateUser() {
       setContact(e.target.value);
     }
   };
-  const handleUpdate = () => {
+  const handleUpdate = (e) => {
+    e.preventDefault();
     const isPhoneValid = phoneRegx.test(contact);
     const isNameValid = nameRegx.test(name);
     if (!isNameValid) {
@@ -162,7 +151,10 @@ function UpdateUser() {
               <p style={{ color: "red" }}>{errorValidation}</p>
             </div>
             <div className="userUpdateRight">
-              <button className="userUpdateButton" onClick={handleUpdate}>
+              <button
+                className="userUpdateButton"
+                onClick={(e) => handleUpdate(e)}
+              >
                 Update
               </button>
             </div>
