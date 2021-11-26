@@ -67,7 +67,6 @@ function Users() {
       <Link to="/newUser">
         <button className="userAddButton">Add User</button>
       </Link>
-
       <DataGrid
         getRowId={(row) => row._id}
         rows={user}

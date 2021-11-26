@@ -72,8 +72,7 @@ export const addUserData = (data) => (dispatch) => {
       // debugger;
       console.log(JSON.stringify(data));
       console.log("dispatched");
-      dispatch({ type: ActionTypes.ADD_USER, payload: data });
-      alert("User successfully Added");
+      //   dispatch({ type: ActionTypes.ADD_USER, payload: data });
     })
     .catch((error) => {
       // debugger;
