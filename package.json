@@ -2,9 +2,7 @@
   "name": "apparel-admin",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": ">=0.10.0"
-  },
+  
   "dependencies": {
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
@@ -34,7 +32,7 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": " PORT=3003 react-scripts --openssl-legacy-provider start",
+    "start": " PORT=3003 react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
