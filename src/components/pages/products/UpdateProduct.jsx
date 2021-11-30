@@ -141,9 +141,9 @@ function UpdateProduct() {
       <div className="productBottom">
         <form className="productForm">
           <div className="productFormLeft">
-            {products.map((product) => {
+            {products.map((product, index) => {
               return (
-                <div className="addProductItem">
+                <div className="addProductItem" key={index}>
                   <label>{product.label}</label>
                   {renderInputComponent(product)}
                   <p style={{ color: "red" }}>{product.error}</p>
