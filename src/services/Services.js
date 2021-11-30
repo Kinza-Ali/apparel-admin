@@ -1,6 +1,7 @@
 import axios from "axios";
 
-axios.defaults.baseURL = "http://localhost:3000/api/";
+axios.defaults.baseURL =
+  "http://ec2-3-250-68-254.eu-west-1.compute.amazonaws.com:3000/api/";
 axios.defaults.headers.common["x-auth-token"] = localStorage.getItem("token");
 class Services {
   get = (url) =>
