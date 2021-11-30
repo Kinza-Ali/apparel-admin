@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect,
+} from "react-router-dom";
 import "./App.css";
 import Login from "./components/auth/Login";
 import Topbar from "./components/topbar/Topbar";
@@ -23,6 +28,17 @@ function App() {
       <div className="container">
         {userService.isAdmin() && <Sidebar />}
         <Switch>
+          <Route
+            exact
+            path="/"
+            render={() => {
+              return userService.isAdmin() ? (
+                <Redirect to="/home" />
+              ) : (
+                <Redirect to="/login" />
+              );
+            }}
+          />
           <Route exact path="/">
             <Home />
           </Route>
