@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-import { getProducts, deleteProduct } from "../../redux/actions/productActions";
+import {
+  getProductList,
+  deleteProduct,
+} from "../../redux/actions/productActions";
 
 import "./Products.css";
 
@@ -13,12 +16,12 @@ function Products() {
   products = useSelector((state) => state.allProducts.products.data);
 
   useEffect(() => {
-    dispatch(getProducts());
-  }, [dispatch]);
+    dispatch(getProductList());
+  }, [dispatch, products]);
 
   const handleDelete = (id) => {
     dispatch(deleteProduct(id));
-    dispatch(getProducts());
+    dispatch(getProductList());
   };
 
   const columns = [

@@ -3,7 +3,7 @@ import { ActionTypes } from "../constants/actionType";
 import productService from "../../../services/ProductService";
 // import { urlProducts } from "../../../config/axios";
 
-export const getProducts = () => async (dispatch) => {
+export const getProductList = () => async (dispatch) => {
   try {
     console.log("calling...");
     //get request
@@ -39,7 +39,10 @@ export const getProductById = (id) => (dispatch) => {
 
 export const deleteProduct = (id) => async (dispatch) => {
   try {
-    await axios.delete("http://localhost:3000/api/product/" + id);
+    await axios.delete(
+      "http://ec2-3-250-68-254.eu-west-1.compute.amazonaws.com:3000/api/product/" +
+        id
+    );
   } catch (error) {
     dispatch({
       type: ActionTypes.FAILED_GET_PRODUCTS,
@@ -91,9 +94,13 @@ export const addProduct = (formData) => async (dispatch) => {
 
   // console.log(productItem);
   const updateRequest = await axios
-    .post("http://localhost:3000/api/product/", formData, {
-      headers: { "Content-Type": "multipart/form-data" },
-    })
+    .post(
+      "http://ec2-3-250-68-254.eu-west-1.compute.amazonaws.com:3000/api/product/",
+      formData,
+      {
+        headers: { "Content-Type": "multipart/form-data" },
+      }
+    )
     .then((res) => {
       console.log(JSON.stringify(updateRequest));
       console.log("dispatched");

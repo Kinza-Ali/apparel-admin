@@ -13,7 +13,7 @@ function Orders() {
 
   useEffect(() => {
     dispatch(getOrders());
-  }, [dispatch]);
+  }, [dispatch, order]);
 
   const handleDelete = (id) => {
     dispatch(deleteOrder(id));

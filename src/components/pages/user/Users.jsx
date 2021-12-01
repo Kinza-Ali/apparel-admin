@@ -17,7 +17,7 @@ function Users() {
 
   useEffect(() => {
     dispatch(getUserList());
-  }, [dispatch]);
+  }, [dispatch, user]);
 
   const handleDelete = (id) => {
     dispatch(deleteUser(id));
