@@ -73,14 +73,10 @@ function Products() {
   if (!products) return <p></p>;
   return (
     <div className="productList">
-      <div className="topButtons">
-        <Link to="/searchProduct">
-          <button className="productSearchButton">Search Product</button>
-        </Link>
-        <Link to="/newProduct">
-          <button className="productAddButton">Add Product</button>
-        </Link>
-      </div>
+      <Link to="/newProduct">
+        <button className="productAddButton">Add Product</button>
+      </Link>
+
       <DataGrid
         getRowId={(row) => row._id}
         rows={products}

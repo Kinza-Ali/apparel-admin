@@ -35,6 +35,9 @@
   justify-content: space-between;
 }
 .productAddButton {
+  align-items: flex-end;
+  justify-content: end;
+  margin-left: 90%;
   background-color: teal;
   border: none;
   border-radius: 5px;
