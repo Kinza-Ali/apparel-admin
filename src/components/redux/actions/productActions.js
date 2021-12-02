@@ -40,7 +40,7 @@ export const getProductById = (id) => (dispatch) => {
 export const deleteProduct = (id) => async (dispatch) => {
   try {
     await axios.delete(
-      "http://ec2-3-250-68-254.eu-west-1.compute.amazonaws.com:3000/api/product/" +
+      "http://ec2-54-76-194-87.eu-west-1.compute.amazonaws.com:3000/api/product/" +
         id
     );
   } catch (error) {
@@ -95,7 +95,7 @@ export const addProduct = (formData) => async (dispatch) => {
   // console.log(productItem);
   const updateRequest = await axios
     .post(
-      "http://ec2-3-250-68-254.eu-west-1.compute.amazonaws.com:3000/api/product/",
+      "http://ec2-54-76-194-87.eu-west-1.compute.amazonaws.com:3000/api/product/",
       formData,
       {
         headers: { "Content-Type": "multipart/form-data" },
